@@ -5,7 +5,7 @@
 
 
 <head>
-  <meta charset="utf-8" />
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
@@ -26,7 +26,7 @@
 
   
   
-<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   
   
@@ -39,7 +39,7 @@
 
 <body>
   
-  <canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
   
   <div id="app">
     <main class="content on">
@@ -65,13 +65,13 @@
       <article class="archive-article archive-type-[post]">
   <div class="archive-article-inner">
     <header class="archive-article-header">
-      <a href="/2020/05/28/2/" class="archive-article-date">
+      <a href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/" class="archive-article-date">
   <time datetime="2020-05-28T08:23:53.000Z" itemprop="datePublished">05/28</time>
 </a>
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/28/2/"
-    >『论文』双判别器生成对抗网络</a> 
+  <a class="archive-article-title" href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/"
+    >生成对抗网络（1）</a> 
 </h2>
  
 
@@ -92,13 +92,13 @@
       <article class="archive-article archive-type-[post]">
   <div class="archive-article-inner">
     <header class="archive-article-header">
-      <a href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/" class="archive-article-date">
+      <a href="/2020/05/28/2/" class="archive-article-date">
   <time datetime="2020-05-28T08:23:53.000Z" itemprop="datePublished">05/28</time>
 </a>
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/"
-    >生成对抗网络（1）</a> 
+  <a class="archive-article-title" href="/2020/05/28/2/"
+    >『论文』双判别器生成对抗网络</a> 
 </h2>
  
 
@@ -400,6 +400,30 @@
 
 <!-- MathJax -->
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
 <!-- Katex -->
 
 <!-- busuanzi  -->
@@ -483,7 +507,7 @@
 
 
     
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>
