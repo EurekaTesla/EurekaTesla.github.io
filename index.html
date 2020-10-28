@@ -38,17 +38,21 @@
 </html>
 
 <body>
-  
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
-  
-  <div id="app">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
+    
+      
     <main class="content on">
       
 <section class="cover">
     
+      
+      <a class="forkMe" href="https://github.com/Shen-Yu/hexo-theme-ayer"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
   <div class="cover-frame">
     <div class="bg-box">
-      <img src="/images/cover4.jpg" alt="image frame" />
+      <img src="/images/cover1.jpg" alt="image frame" />
     </div>
     <div class="cover-inner text-center text-white">
       <h1><a href="/">Eureka Tesla</a></h1>
@@ -71,94 +75,81 @@
 
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
 
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
 <div id="main">
   <section class="outer">
+  
+  
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
   <article class="articles">
     
     
     
     
-    <article id="[post]-2" class="article article-type-[post]" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/28/2/"
-    >『论文』双判别器生成对抗网络</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/28/2/" class="article-date">
-  <time datetime="2020-05-28T08:23:53.000Z" itemprop="datePublished">2020-05-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      
-
-	<div class="row">
-    <embed src="./D2GAN翻译.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN/" rel="tag">GAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN%E8%AE%BA%E6%96%87/" rel="tag">GAN论文</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="[post]-生成对抗网络1" class="article article-type-[post]" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
+    <article
+  id="[post]-生成对抗网络1"
+  class="article article-type-[post]"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
   <div class="article-inner">
     
     <header class="article-header">
@@ -170,72 +161,113 @@
  
 
     </header>
-    
-
-    
+     
     <div class="article-meta">
       <a href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/" class="article-date">
   <time datetime="2020-05-28T08:23:53.000Z" itemprop="datePublished">2020-05-28</time>
-</a>
-      
+</a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
   </div>
-
-      
-      
-      
+   
     </div>
-    
-
-    
-
-    
+      
     <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/hexojs/hexo-theme-landscape.git themes/landscape</span><br></pre></td></tr></table></figure>
+       
+  <h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/hexojs/hexo-theme-landscape.git themes/landscape</span><br></pre></td></tr></table></figure>
 
 <p><strong>Landscape requires Hexo 2.4 and above.</strong> If you would like to enable the RSS, the [hexo-generate-feed] plugin is also required.</p>
-<h3 id="Enable"><a href="#Enable" class="headerlink" title="Enable"></a>Enable</h3><p>Modify <code>theme</code> setting in <code>_config.yml</code> to <code>landscape</code>.</p>
-      
-      <a class="article-more-link" href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/">阅读更多...</a>
-      
-      
+<h3 id="Enable"><a href="#Enable" class="headerlink" title="Enable"></a>Enable</h3><p>Modify <code>theme</code> setting in <code>_config.yml</code> to <code>landscape</code>.</p> 
+      <a class="article-more-link" href="/2020/05/28/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C1/"
+        >阅读更多...</a
+      >
+       
       <!-- reward -->
       
     </div>
     
+
+    <!-- copyright -->
     
-      <!-- copyright -->
-      
     <footer class="article-footer">
-      
-      
+       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN/" rel="tag">GAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
 
-
     </footer>
-
   </div>
 
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
     
-    <article id="post-hello-world" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
+ 
+   
+</article>
 
+    
+    <article
+  id="[post]-2"
+  class="article article-type-[post]"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/28/2/"
+    >『论文』双判别器生成对抗网络</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/05/28/2/" class="article-date">
+  <time datetime="2020-05-28T08:23:53.000Z" itemprop="datePublished">2020-05-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  
+
+	<div class="row">
+    <embed src="./D2GAN翻译.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN/" rel="tag">GAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAN%E8%AE%BA%E6%96%87/" rel="tag">GAN论文</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-hello-world"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
   <div class="article-inner">
     
     <header class="article-header">
@@ -247,57 +279,34 @@
  
 
     </header>
-    
-
-    
+     
     <div class="article-meta">
       <a href="/2020/05/28/hello-world/" class="article-date">
   <time datetime="2020-05-28T02:23:53.000Z" itemprop="datePublished">2020-05-28</time>
-</a>
-      
-      
-      
-      
+</a>    
     </div>
-    
-
-    
-
-    
+      
     <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>欢迎来到我的博客，这里将分享我的学习和生活。我目前研究的方向有：机器学习；深度学习；图像处理；三维重建等，我将会把自己在学习中遇到的问题和解决方案整理出来，发在这里，欢迎志同道合的人相互交流学习。</p>
-
-      
+       
+  <p>欢迎来到我的博客，这里将分享我的学习和生活。我目前研究的方向有：机器学习；深度学习；图像处理；三维重建等，我将会把自己在学习中遇到的问题和解决方案整理出来，发在这里，欢迎志同道合的人相互交流学习。</p>
+ 
       <!-- reward -->
       
     </div>
     
+
+    <!-- copyright -->
     
-      <!-- copyright -->
-      
     <footer class="article-footer">
-      
-      
-
+       
     </footer>
-
   </div>
 
-  
-
-  
-  
-  
-
-  
-  
-  
-
+    
+ 
+   
 </article>
+
     
   </article>
   
@@ -311,12 +320,18 @@
     <ul>
       <li>
         Copyrights &copy;
-        2020
+        2015-2020
         <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
       </li>
     </ul>
     <ul>
       <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
         
       </li>
     </ul>
@@ -331,6 +346,9 @@
 </span>
         
       </li>
+    </ul>
+    <ul>
+      
     </ul>
     <ul>
       
@@ -383,7 +401,23 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2020/about">我</a>
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/player">播放器</a>
     </li>
     
   </ul>
@@ -443,23 +477,6 @@
 
 
 <script src="/js/lazyload.min.js"></script>
-
-<!-- Subtitle -->
-
-<script>
-  try {
-    var typed = new Typed("#subtitle", {
-      strings: ['知行合一', '舍与得，想和做', '欢迎来到我的博客'],
-      startDelay: 0,
-      typeSpeed: 250,
-      loop: true,
-      backSpeed: 100,
-      showCursor: true
-    });
-  } catch (err) {
-    console.log(err)
-  }
-</script>
 
 <!-- Tocbot -->
 
@@ -580,30 +597,6 @@
 
 <!-- MathJax -->
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-  });
-
-  MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for(i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-  var ayerConfig = {
-    mathjax: true
-  }
-</script>
-
 <!-- Katex -->
 
 <!-- busuanzi  -->
@@ -614,15 +607,9 @@
 
 <!-- ClickLove -->
 
+<!-- ClickBoom1 -->
 
-<script src="/js/clickLove.js"></script>
-
-
-<!-- ClickBoom -->
-
-
-<script src="/js/clickBoom.js"></script>
-
+<!-- ClickBoom2 -->
 
 <!-- CodeCopy -->
 
@@ -684,6 +671,8 @@
   }(window, document);
 </script>
 
+
+<!-- CanvasBackground -->
 
 
     

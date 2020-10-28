@@ -38,15 +38,18 @@
 </html>
 
 <body>
-  
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
-  
-  <div id="app">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
+    
+      
     <main class="content on">
       <section class="outer">
-  <article id="page-" class="article article-type-page" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
+  <article
+  id="page-"
+  class="article article-type-page"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
   <div class="article-inner">
     
     <header class="article-header">
@@ -57,44 +60,41 @@
  
 
     </header>
-    
-
-    
-
-    
-
-    
+       
     <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <hr>
+       
+  <hr>
 <p>title: Gallery</p>
 <p>albums: [<br>        [“/Users/nikolatesla/myblog/source/photos/photo1/“,”img_photo1”],<br>        [“/Users/nikolatesla/myblog/source/photos/photo2/“,”img_photo2”]<br>        ]</p>
 <hr>
-
-      
+ 
       <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
       
     </div>
     
+
+    <!-- copyright -->
     
-      <!-- copyright -->
-      
-        <div class="declare">
-          <ul class="post-copyright">
-            <li>
-              <i class="ri-copyright-line"></i>
-              <strong>Copyright： </strong>
-              Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
-            </li>
-          </ul>
-        </div>
-        
-    <footer class="article-footer">
-      
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
           
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
 <div class="share-btn">
       <span class="share-sns share-outer">
         <i class="ri-share-forward-line"></i>
@@ -141,90 +141,81 @@
     </div>
 </div>
 
-<div id="share-mask"></div>
-      
-      
-
+<div id="share-mask"></div>  
     </footer>
-
   </div>
 
-  
-  
-
-  
-
-  
-  
+   
+   
 <!-- valine评论 -->
 <div id="vcomments-box">
-    <div id="vcomments">
-    </div>
+  <div id="vcomments"></div>
 </div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
 <script>
-    new Valine({
-        el: '#vcomments',
-        app_id: 'SwWR9JMlV8zu7f6c2vc8odT2-gzGzoHsz',
-        app_key: 'A7lvTe6NJ6a50IN7OhMdHAcz',
-        path: window.location.pathname,
-        notify: false,
-        verify: false,
-        avatar: 'monsterid',
-        placeholder: '给我的文章加点评论吧~',
-        recordIP: true
+  new Valine({
+    el: "#vcomments",
+    app_id: "chaSYi8FMdJBwzIBpxeNjqWC-gzGzoHsz",
+    app_key: "PqqkLYgPkHvH1BmyQqySWnSK",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
     });
-    const infoEle = document.querySelector('#vcomments .info');
-    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-        infoEle.childNodes.forEach(function (item) {
-            item.parentNode.removeChild(item);
-        });
-    }
+  }
 </script>
 <style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
     #vcomments-box {
-        padding: 5px 30px;
+      padding: 5px 0px;
     }
+  }
 
-    @media screen and (max-width: 800px) {
-        #vcomments-box {
-            padding: 5px 0px;
-        }
-    }
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
 
-    #vcomments-box #vcomments {
-        background-color: #fff;
-    }
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
 
-    .v .vlist .vcard .vh {
-        padding-right: 20px;
-    }
-
-    .v .vlist .vcard {
-        padding-left: 10px;
-    }
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
 </style>
 
-  
-
-  
-  
-  
-
+ 
+   
 </article>
+
 </section>
       <footer class="footer">
   <div class="outer">
     <ul>
       <li>
         Copyrights &copy;
-        2020
+        2015-2020
         <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
       </li>
     </ul>
     <ul>
       <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
         
       </li>
     </ul>
@@ -239,6 +230,9 @@
 </span>
         
       </li>
+    </ul>
+    <ul>
+      
     </ul>
     <ul>
       
@@ -291,7 +285,23 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2020/about">我</a>
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/player">播放器</a>
     </li>
     
   </ul>
@@ -351,23 +361,6 @@
 
 
 <script src="/js/lazyload.min.js"></script>
-
-<!-- Subtitle -->
-
-<script>
-  try {
-    var typed = new Typed("#subtitle", {
-      strings: ['知行合一', '舍与得，想和做', '欢迎来到我的博客'],
-      startDelay: 0,
-      typeSpeed: 250,
-      loop: true,
-      backSpeed: 100,
-      showCursor: true
-    });
-  } catch (err) {
-    console.log(err)
-  }
-</script>
 
 <!-- Tocbot -->
 
@@ -488,30 +481,6 @@
 
 <!-- MathJax -->
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-  });
-
-  MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for(i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-  var ayerConfig = {
-    mathjax: true
-  }
-</script>
-
 <!-- Katex -->
 
 <!-- busuanzi  -->
@@ -522,15 +491,9 @@
 
 <!-- ClickLove -->
 
+<!-- ClickBoom1 -->
 
-<script src="/js/clickLove.js"></script>
-
-
-<!-- ClickBoom -->
-
-
-<script src="/js/clickBoom.js"></script>
-
+<!-- ClickBoom2 -->
 
 <!-- CodeCopy -->
 
@@ -592,6 +555,8 @@
   }(window, document);
 </script>
 
+
+<!-- CanvasBackground -->
 
 
     

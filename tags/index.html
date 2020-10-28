@@ -38,10 +38,9 @@
 </html>
 
 <body>
-  
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
-  
-  <div id="app">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
+    
+      
     <main class="content on">
       <section class="outer">
   
@@ -56,12 +55,18 @@
     <ul>
       <li>
         Copyrights &copy;
-        2020
+        2015-2020
         <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
       </li>
     </ul>
     <ul>
       <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
         
       </li>
     </ul>
@@ -76,6 +81,9 @@
 </span>
         
       </li>
+    </ul>
+    <ul>
+      
     </ul>
     <ul>
       
@@ -128,7 +136,23 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2020/about">我</a>
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/player">播放器</a>
     </li>
     
   </ul>
@@ -188,23 +212,6 @@
 
 
 <script src="/js/lazyload.min.js"></script>
-
-<!-- Subtitle -->
-
-<script>
-  try {
-    var typed = new Typed("#subtitle", {
-      strings: ['知行合一', '舍与得，想和做', '欢迎来到我的博客'],
-      startDelay: 0,
-      typeSpeed: 250,
-      loop: true,
-      backSpeed: 100,
-      showCursor: true
-    });
-  } catch (err) {
-    console.log(err)
-  }
-</script>
 
 <!-- Tocbot -->
 
@@ -325,30 +332,6 @@
 
 <!-- MathJax -->
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-  });
-
-  MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for(i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-  var ayerConfig = {
-    mathjax: true
-  }
-</script>
-
 <!-- Katex -->
 
 <!-- busuanzi  -->
@@ -359,15 +342,9 @@
 
 <!-- ClickLove -->
 
+<!-- ClickBoom1 -->
 
-<script src="/js/clickLove.js"></script>
-
-
-<!-- ClickBoom -->
-
-
-<script src="/js/clickBoom.js"></script>
-
+<!-- ClickBoom2 -->
 
 <!-- CodeCopy -->
 
@@ -429,6 +406,8 @@
   }(window, document);
 </script>
 
+
+<!-- CanvasBackground -->
 
 
     
