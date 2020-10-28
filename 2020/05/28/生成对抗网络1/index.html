@@ -40,6 +40,17 @@
 <body>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
     
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
       
     <main class="content on">
       <section class="outer">
@@ -211,19 +222,10 @@
    
   <nav class="article-nav">
     
+    
       <a href="/2020/05/28/2/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            『论文』双判别器生成对抗网络
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/05/28/hello-world/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Eureka Tesla</div>
+        <div class="article-nav-title">『论文』双判别器生成对抗网络</div>
       </a>
     
   </nav>
@@ -286,7 +288,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2015-2020
+        2020
         <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
       </li>
     </ul>
@@ -580,6 +582,11 @@
 
 <!-- ClickBoom1 -->
 
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
 <!-- ClickBoom2 -->
 
 <!-- CodeCopy -->
@@ -650,6 +657,23 @@
 
 
 
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
     
   </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
