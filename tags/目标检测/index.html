@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    建站过程简述 |  Eureka Tesla
+    Tag: 目标检测 |  Eureka Tesla
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -46,165 +46,55 @@
       
     <main class="content on">
       <section class="outer">
-  <article
-  id="[post]-建站过程简述"
-  class="article article-type-[post]"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+  
+  <article class="articles">
     
-    <header class="article-header">
+    
+    <h1 class="page-type-title">#&nbsp目标检测</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2020" class="archive-year">2020</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-[post]">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/07/10/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8-Part-1%EF%BC%9A%E6%A2%AF%E5%BA%A6%E5%90%91%E9%87%8F%EF%BC%8CHOG-%E5%92%8C-SS/" class="archive-article-date">
+  <time datetime="2020-07-10T15:53:04.000Z" itemprop="datePublished">07/10</time>
+</a>
        
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  建站过程简述
-</h1>
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/07/10/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8-Part-1%EF%BC%9A%E6%A2%AF%E5%BA%A6%E5%90%91%E9%87%8F%EF%BC%8CHOG-%E5%92%8C-SS/"
+    >目标检测入门 Part 1：梯度向量，HOG 和 SS</a> 
+</h2>
  
 
     </header>
-     
-    <div class="article-meta">
-      <a href="/2020/06/28/%E5%BB%BA%E7%AB%99%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0/" class="article-date">
-  <time datetime="2020-06-28T11:06:58.000Z" itemprop="datePublished">2020-06-28</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BB%BA%E7%AB%99/">建站</a>
-  </div>
-  
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">214</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
+    
+    
       
-    <div class="tocbot"></div>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HOG/" rel="tag">HOG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/" rel="tag">图像分割</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag">目标检测</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9B%AE%E6%A0%87%E8%AF%86%E5%88%AB/" rel="tag">目标识别</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%89%E6%8B%A9%E6%80%A7%E6%90%9C%E7%B4%A2/" rel="tag">选择性搜索</a></li></ul>
 
-
-
-
-  
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><strong>详细教程因需求不同和电脑系统不同而有所差异。这里仅列出自己思路和参考资料。</strong></p>
-<a id="more"></a>
-<hr>
-<h4 id="1-建站准备"><a href="#1-建站准备" class="headerlink" title="1 建站准备"></a>1 建站准备</h4><p>​域名：<a href="https://wanwang.aliyun.com/?spm=5176.10695662.1158081.1.59854234NI3GTM" target="_blank" rel="noopener">阿里云申请域名</a>（根据域名不同，费用不等）。也可以不用域名，直接用HEXO基于Github建站。<br>​服务器：<a href="https://github.com" target="_blank" rel="noopener">Github</a>建立网站代码仓库（也可以自己租用服务器，对于个人写写播客而言，没必要）。</p>
-<h4 id="2-网页设计"><a href="#2-网页设计" class="headerlink" title="2 网页设计"></a>2 网页设计</h4><p>​<a href="https://hexo.bootcss.com" target="_blank" rel="noopener">HEXO</a>：快速建站，可以快捷插入各种主题，选择一个合适自己的就行。在官网上可以预览一些主题模板。<br>​主题：自己用的主题是 <a href="https://shen-yu.gitee.io/2019/ayer/" target="_blank" rel="noopener">Ayer</a>。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201030image-20201030085509902.png" alt="image-20201030085509902" title="HEXO主题"></p>
-<center>图1.HEXO主题选择</center>
-
-
-<h4 id="3-编写文档"><a href="#3-编写文档" class="headerlink" title="3 编写文档"></a>3 编写文档</h4><p>​<a href="https://www.typora.io" target="_blank" rel="noopener">Markdown</a>: Markdown编译软件选用的是Typora。Markdown基本使用教程参考<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">菜鸟教程</a>。<br>​图床：工具upic + Github当做图床。<a href="https://juejin.im/post/6844904117094072327" target="_blank" rel="noopener">MAC参考教程</a>。</p>
- 
-      <!-- reward -->
-      
-    </div>
     
-
-    <!-- copyright -->
-    
-    <div class="declare">
-      <ul class="post-copyright">
-        <li>
-          <i class="ri-copyright-line"></i>
-          <strong>Copyright： </strong>
-          
-          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
-          
-        </li>
-      </ul>
-    </div>
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HEXO/" rel="tag">HEXO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li></ul>
-
-    </footer>
   </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2020/07/10/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8-Part-1%EF%BC%9A%E6%A2%AF%E5%BA%A6%E5%90%91%E9%87%8F%EF%BC%8CHOG-%E5%92%8C-SS/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            目标检测入门 Part 1：梯度向量，HOG 和 SS
-          
-        </div>
-      </a>
-    
-    
-  </nav>
-
-   
-<!-- valine评论 -->
-<div id="vcomments-box">
-  <div id="vcomments"></div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<script>
-  new Valine({
-    el: "#vcomments",
-    app_id: "SwWR9JMlV8zu7f6c2vc8odT2-gzGzoHsz",
-    app_key: "A7lvTe6NJ6a50IN7OhMdHAcz",
-    path: window.location.pathname,
-    avatar: "monsterid",
-    placeholder: "给我的文章加点评论吧~",
-    recordIP: true,
-  });
-  const infoEle = document.querySelector("#vcomments .info");
-  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-    infoEle.childNodes.forEach(function (item) {
-      item.parentNode.removeChild(item);
-    });
-  }
-</script>
-<style>
-  #vcomments-box {
-    padding: 5px 30px;
-  }
-
-  @media screen and (max-width: 800px) {
-    #vcomments-box {
-      padding: 5px 0px;
-    }
-  }
-
-  #vcomments-box #vcomments {
-    background-color: #fff;
-  }
-
-  .v .vlist .vcard .vh {
-    padding-right: 20px;
-  }
-
-  .v .vlist .vcard {
-    padding-left: 10px;
-  }
-</style>
-
- 
-     
 </article>
+      
+      
+    </div>
+  </div>
+  
+  
 
+  
 </section>
       <footer class="footer">
   <div class="outer">
@@ -332,23 +222,6 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto'
-  });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
