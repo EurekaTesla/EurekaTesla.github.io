@@ -126,18 +126,18 @@
 <tr>
 <td>定义</td>
 <td>函数 $f(x,y,z,…)$ 在点 $(x_0,y_0,z_0,…)$ 上的变化速率，即在该点上切线的斜率</td>
-<td>$$f(x,y,z, …)$$在向量$$\vec{u}$$上瞬时变化速率</td>
+<td>$f(x,y,z, …)$ 在向量 $\vec{u}$ 上瞬时变化速率</td>
 <td>它指向函数最大增长率的方向，其中包含多变量函数的所有偏导数信息。</td>
 </tr>
 </tbody></table>
 <p>在图像处理中，我们想知道颜色从一种极端变化到另一种极端的方向（例如，在灰度图像上从黑色变为白色）。因此，我们要测量颜色像素上的“梯度”。图像上的梯度是离散的，因为每个像素都是独立的，无法进一步拆分。</p>
-<p><a href="https://en.wikipedia.org/wiki/Image_gradient" target="_blank" rel="noopener">图像梯度矢量</a>被定义为度量每个单独的像素，在x轴和y轴的像素的颜色的变化。该定义与连续多变量函数的梯度一致，该函数是所有变量的偏导数的向量。假设 $$f(x, y)$$ 记录着像素 $$(x, y)$$ 的颜色，则像素 $$（x，y）$$ 的梯度矢量定义如下：</p>
-<p>$$<br>\begin{align<em>}<br>\nabla f(x, y)<br>= \begin{bmatrix}<br>  g_x \<br>  g_y<br>\end{bmatrix}<br>= \begin{bmatrix}<br>  \frac{\partial f}{\partial x} \[6pt]<br>  \frac{\partial f}{\partial y}<br>\end{bmatrix}<br>= \begin{bmatrix}<br>  f(x+1, y) - f(x-1, y)\<br>  f(x, y+1) - f(x, y-1)<br>\end{bmatrix}<br>\end{align</em>}<br>$$</p>
-<p>其中$$\frac{\partial f}{\partial x}$$是$$x$$方向上的偏导数，是用来计算目标左右两侧的相邻像素之间的色差，用$$f(x+1, y) - f(x-1, y)$$来计算。类似的，$$\frac{\partial f}{\partial y}$$是$$y$$方向上的偏导数，是用来计算目标上下两侧的相邻像素之间的色差，用$$f(x, y+1) - f(x, y-1)$$</p>
+<p><a href="https://en.wikipedia.org/wiki/Image_gradient" target="_blank" rel="noopener">图像梯度矢量</a>被定义为度量每个单独的像素，在x轴和y轴的像素的颜色的变化。该定义与连续多变量函数的梯度一致，该函数是所有变量的偏导数的向量。假设 $f(x, y)$ 记录着像素 $(x, y)$ 的颜色，则像素 $（x，y）$ 的梯度矢量定义如下：</p>
+<p>$$<br>\begin{align<em>}<br>\nabla f(x, y)<br>= \begin{bmatrix}<br>  g_x \<br>  g_y<br>\end{bmatrix}<br>= \begin{bmatrix}<br>  \frac{\partial f}{\partial x} \<br>  \frac{\partial f}{\partial y}<br>\end{bmatrix}<br>= \begin{bmatrix}<br>  f(x+1, y) - f(x-1, y)\<br>  f(x, y+1) - f(x, y-1)<br>\end{bmatrix}<br>\end{align</em>}<br>$$</p>
+<p>其中 $\frac{\partial f}{\partial x}$ 是 $x$ 方向上的偏导数，是用来计算目标左右两侧的相邻像素之间的色差，用 $f(x+1, y) - f(x-1, y)$ 来计算。类似的，$\frac{\partial f}{\partial y}$ 是 $y$ 方向上的偏导数，是用来计算目标上下两侧的相邻像素之间的色差，用 $f(x, y+1) - f(x, y-1)$ </p>
 <p>图像梯度有两个重要属性：</p>
 <ul>
-<li><strong>大小</strong> 是向量的L2范数, $$g = \sqrt{ g_x^2 + g_y^2 }$$.</li>
-<li><strong>方向</strong> 是两个方向上偏导数之比的反正切, $$\theta = \arctan{(g_y / g_x)}$$.</li>
+<li><strong>大小</strong> 是向量的L2范数, $g = \sqrt{ g_x^2 + g_y^2 }$.</li>
+<li><strong>方向</strong> 是两个方向上偏导数之比的反正切, $\theta = \arctan{(g_y / g_x)}$.</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201217image-gradient-vector-pixel-location.png" alt="image-gradient-vector-pixel-location"><br><em>Fig. 1. 为了计算目标像素在位置（x，y）的梯度向量，我们需要知道其四个相邻像素（或八个周围像素，取决于内核）的颜色。</em></p>
 <p>Fig. 1.中示例的梯度向量为:</p>
