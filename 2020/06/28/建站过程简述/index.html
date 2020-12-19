@@ -26,14 +26,14 @@
 
   
   
-<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
 
   
   
 
   
 
-</head>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 </html>
 
@@ -102,15 +102,18 @@
     <div class="article-entry" itemprop="articleBody">
        
   <p><strong>详细教程因需求不同和电脑系统不同而有所差异。这里仅列出自己思路和参考资料。</strong></p>
-<a id="more"></a>
-<hr>
-<h4 id="1-建站准备"><a href="#1-建站准备" class="headerlink" title="1 建站准备"></a>1 建站准备</h4><p>​域名：<a href="https://wanwang.aliyun.com/?spm=5176.10695662.1158081.1.59854234NI3GTM" target="_blank" rel="noopener">阿里云申请域名</a>（根据域名不同，费用不等）。也可以不用域名，直接用HEXO基于Github建站。<br>​服务器：<a href="https://github.com" target="_blank" rel="noopener">Github</a>建立网站代码仓库（也可以自己租用服务器，对于个人写写播客而言，没必要）。</p>
-<h4 id="2-网页设计"><a href="#2-网页设计" class="headerlink" title="2 网页设计"></a>2 网页设计</h4><p>​<a href="https://hexo.bootcss.com" target="_blank" rel="noopener">HEXO</a>：快速建站，可以快捷插入各种主题，选择一个合适自己的就行。在官网上可以预览一些主题模板。<br>​主题：自己用的主题是 <a href="https://shen-yu.gitee.io/2019/ayer/" target="_blank" rel="noopener">Ayer</a>。</p>
+<h2 id="more"><a id="more"></a></h2>
+<h4 id="1-建站准备">1 建站准备</h4>
+<p>​域名：<a href="https://wanwang.aliyun.com/?spm=5176.10695662.1158081.1.59854234NI3GTM" target="_blank" rel="noopener">阿里云申请域名</a>（根据域名不同，费用不等）。也可以不用域名，直接用HEXO基于Github建站。<br>
+​服务器：<a href="https://github.com" target="_blank" rel="noopener">Github</a>建立网站代码仓库（也可以自己租用服务器，对于个人写写播客而言，没必要）。</p>
+<h4 id="2-网页设计">2 网页设计</h4>
+<p>​<a href="https://hexo.bootcss.com" target="_blank" rel="noopener">HEXO</a>：快速建站，可以快捷插入各种主题，选择一个合适自己的就行。在官网上可以预览一些主题模板。<br>
+​主题：自己用的主题是 <a href="https://shen-yu.gitee.io/2019/ayer/" target="_blank" rel="noopener">Ayer</a>。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201030image-20201030085509902.png" alt="image-20201030085509902" title="HEXO主题"></p>
 <center>图1.HEXO主题选择</center>
-
-
-<h4 id="3-编写文档"><a href="#3-编写文档" class="headerlink" title="3 编写文档"></a>3 编写文档</h4><p>​<a href="https://www.typora.io" target="_blank" rel="noopener">Markdown</a>: Markdown编译软件选用的是Typora。Markdown基本使用教程参考<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">菜鸟教程</a>。<br>​图床：工具upic + Github当做图床。<a href="https://juejin.im/post/6844904117094072327" target="_blank" rel="noopener">MAC参考教程</a>。</p>
+<h4 id="3-编写文档">3 编写文档</h4>
+<p>​<a href="https://www.typora.io" target="_blank" rel="noopener">Markdown</a>: Markdown编译软件选用的是Typora。Markdown基本使用教程参考<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">菜鸟教程</a>。<br>
+​图床：工具upic + Github当做图床。<a href="https://juejin.im/post/6844904117094072327" target="_blank" rel="noopener">MAC参考教程</a>。</p>
  
       <!-- reward -->
       
@@ -467,31 +470,16 @@
 
 <!-- MathJax -->
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-  });
-
-  MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for(i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-  var ayerConfig = {
-    mathjax: true
-  }
-</script>
-
 <!-- Katex -->
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
 
 <!-- busuanzi  -->
 
@@ -574,7 +562,24 @@
 
 
     
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 
 </html>
