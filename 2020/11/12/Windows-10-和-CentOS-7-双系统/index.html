@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Windows 10 和 CentOS 7 双系统 |  Eureka Tesla
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+</html>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="[post]-Windows-10-和-CentOS-7-双系统"
+  class="article article-type-[post]"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Windows 10 和 CentOS 7 双系统
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/12/Windows-10-%E5%92%8C-CentOS-7-%E5%8F%8C%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2020-11-12T15:06:20.000Z" itemprop="datePublished">2020-11-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/">深度学习环境</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><strong>因实验需要，在深度学习工作站上的 Windows 10 基础上安装 CentOS 7 系统。</strong></p>
+<h2 id="more"><a id="more"></a></h2>
+<p><strong>深度学习工作站硬件</strong><br>
+CPU：Inter Core i9-10900KF @ 3.70GHz<br>
+RAM：64G (海盗船 DDR4 3600MHz)<br>
+GPU：Nvidia GeForce RTX 3090 (24GB / 微星)<br>
+主板：微星 MEG Z490 ACE（MS-7C71）<br>
+固态：金士顿 1T * 2</p>
+<h4 id="1-准备过程">1 准备过程</h4>
+<h5 id="1-1-磁盘分区">1.1 磁盘分区</h5>
+<p>在一个较大的磁盘中分出至少 50G 盘装 Linux 系统（不会格式化原有的数据），可根据需求可分更大，步骤如下：<br>
+<strong>① 右击“此电脑”——&gt;“管理”</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE1.png" alt="图1"></p>
+<center>图1.右击“此电脑”——>“管理”</center>
+<p><strong>② 选择一个较大的磁盘，右击选择“压缩卷”</strong><br>
+比如选择D盘</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE2.png" alt="图2"></p>
+<center>图2.压缩卷</center>
+<p><strong>③ 分出 Linux 至少 50G 空间</strong>根据需求可分更大</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE3.png" alt="图3"></p>
+<center>图3.分出Linux的 50G 空间</center>
+<h5 id="1-2-制作启动盘">1.2 制作启动盘</h5>
+<p><strong>① 先准备一个U盘，格式化后后续作为 CentOS 7 系统盘</strong><br>
+这个U盘里的有用的数据注意要提前保存</p>
+<p><strong>② CentOS 国内下载源和版本选择：<a href="https://blog.csdn.net/xiaojin21cen/article/details/83713559" target="_blank" rel="noopener">国内下载源和版本</a></strong><br>
+版本选择DVD，DVD是标准安装盘， 一般下载这个就可以了</p>
+<p><strong>③ 使用 <a href="http://tw.ezbsystems.com/ultraiso/" target="_blank" rel="noopener">UltraISO</a>，即软碟通制作启动盘（可以免费试用）</strong><br>
+“文件”——&gt;“打开”，找到下载的 CentOS 的.iso文件，加载进来</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/2020111120201111%E5%9B%BE4.png" alt="图4"></p>
+<center>图4.加载.iso文件文件</center>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/202011112020111120201111%E5%9B%BE5.png" alt="图5"></p>
+<center>图5.系统写入U盘</center>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE6.png" alt="图6"></p>
+<center>图6.确认参数并写入</center>
+<p><strong>出现提示，点“是(Y)”即可</strong></p>
+<p>显示刻录成功即可下一步</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE7.png" alt="图7"></p>
+<center>图7.刻录完成</center>
+<h4 id="2-安装过程">2 安装过程</h4>
+<h5 id="2-1-bios-设置u盘自启动">2.1 BIOS 设置U盘自启动</h5>
+<p><strong>关机，开机，进入 BIOS 界面</strong><br>
+不同品牌主板进入 BIOS 的方式可能不同，可以依据自己主板品牌<a href="www.baidu.com">百度一下</a>。<br>
+我的是微星主板（开机后一直按键盘“Delete”键来进入BIOS界面）。<br>
+目前第一启动项为硬盘1启动，查看U启的启动项在哪里，下图中为第5项，也就是“USB Key”，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE8.1.jpeg" alt="20201111图8.1"></p>
+<center>图8.查看第一启动项</center>
+<p>需要将U盘作为第一启动项，那么就将“USB Key”拖动到第一的位置。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE9.jpeg" alt="图9"></p>
+<center>图9.将U盘作为第一启动项</center>
+<p>然后，按下键盘的 F10 键保存修改，并点击“Yes”<br>
+完成第一启动项的修改之后电脑会进行重启，不需要在操作即可直接进入U启。</p>
+<h5 id="2-2-配置并进入图形界面">2.2 配置并进入图形界面</h5>
+<p>完成<strong>2.1</strong>的设置之后，电脑会进入如下界面<br>
+<img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE10.jpeg" alt="20201111图10"></p>
+<center>图10.按e进入编辑模式</center>
+<p>选中 Install CentOS Linux 7，按e进入编辑模式后，屏幕会出现当前运行的脚本命令。</p>
+<p>setparams ‘Install CentOS Linux 7<br>
+linuxefi/images/pxeboot/vmlinuz inst.stage2=hd:<font color="red">LABEL=CentOS\x207\x20x86_64 xdriver=vesa</font> quiet<br>
+initrdefi/images/pxeboot/initrd.img</p>
+<p>通过方向键选择需要修改的地方，并通过键盘<strong>将红色部分修改为绿色部分</strong></p>
+<p>setparams ‘Install CentOS Linux 7<br>
+linuxefi/images/pxeboot/vmlinuz inst.stage2=hd:<font color="green"> /dev/sdb4:/ </font> quiet<br>
+initrdefi/images/pxeboot/initrd.img</p>
+<p>这儿<font color="green"> /dev/sdb4:/ </font>是指定安装U盘所在路径。然后Ctrl+X</p>
+<hr>
+<p><strong>注意：没有问题跳过，如果出现下图的问题，进行如下操作即可</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE11.1.jpeg" alt="20201111图11.1"></p>
+<center>图11.U盘所在路径不正确</center>
+<p><strong>问题原因：</strong><br>
+绿色修改部分中有的电脑是<font color="green"> /dev/sdb4:/ </font>，有的是<font color="green"> /dev/sda4:/ </font>等</p>
+<p><strong>解决方法：</strong><br>
+终端键入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dracut:&#x2F;# cd &#x2F;dev</span><br><span class="line">dracut:&#x2F;dev# ls</span><br></pre></td></tr></table></figure>
+<p>然后在终端显示的内容中找出我的启动盘是<strong>sda4</strong>，而非上面的<strong>sdb4</strong>(因不同电脑会有区别)</p>
+<p>然后重启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dracut:&#x2F;dev# reboot</span><br></pre></td></tr></table></figure>
+<p>重新选择选中Install CentOS Linux 7，按e进入编辑模式，并将<strong>2.2</strong>需要修改的修改地方改为<font color="green"> /dev/sda4:/ </font>，然后Ctrl+X即可</p>
+<hr>
+<h5 id="2-3-安装前软件选择和分区设置">2.3 安装前软件选择和分区设置</h5>
+<p>之后出现语言选择界面，选择“中文-简体中文”，进入如下界面<br>
+<img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE12.jpeg" alt="20201111图12"></p>
+<center>图12.进入界面</center>
+<p>接着配置**“软件选择”<strong>和</strong>“安装位置”**：</p>
+<p><strong>点击“软件选择”</strong><br>
+新手尽量选择带图像化的界面，例如“GNOME 桌面”或者“KED Plasma Workspaces”，也可根据需求选择其他。这里选择了“GNOME 桌面”，并在右侧选择了“开发工具”，并点击左上角“完成”保存<br>
+<img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE13.jpeg" alt="20201111图13"></p>
+<center>图13.软件选择</center>
+<p><strong>点击“安装位置”</strong><br>
+分区这里要注意，<strong>一定要选择 1.1 中分出来的空磁盘，否则会覆盖掉磁盘里原有的信息!!!</strong>，选择好点左上角“完成”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE14.jpeg" alt="20201111图14"></p>
+<center>图14.选择磁盘准备分区</center>
+<p>分区计划</p>
+<table>
+<thead>
+<tr>
+<th>区</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>29GB</td>
+</tr>
+<tr>
+<td>swap</td>
+<td>8GB</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>11.7GB</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>1GB</td>
+</tr>
+<tr>
+<td>/boot/efi</td>
+<td>500mb</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE15.jpeg" alt="20201111图15"></p>
+<center>图15.添加并配置分区</center>
+<p>同样的方法建立swap、/boot、/home分区，这里需要注意的是 swap 的大小，一般来说，应该是实际内存的两倍，但是实际内存很大的话，设置 8G 也够了</p>
+<p>至于这个分区的类型，也就是 Device Type 这里，按照它默认就好，即/、swap、/home是 LVM 类型，/boot是标准分区</p>
+<p>分好区后，点击“完成”，弹出下面的窗口，直接点击“接受更改”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE16.jpeg" alt="20201111图16"></p>
+<center>图16.接受更改</center>
+<h5 id="2-4-开始安装">2.4 开始安装</h5>
+<p>到现在，全部设置完毕，点击右下角“开始安装”</p>
+<p>然后设置密码和账户。注意在设置账户时，还会设置一个密码，而那个密码是针对账户来说的，和root密码并不一样，所以要将两个密码记清楚。当然你也可以把两个密码设置一样的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE17.jpeg" alt="20201111图17"></p>
+<center>图17.设置密码和账户</center>
+<p>等待进度完成，点击右下角“完成配置”，等待安装完成点击右下角“重启”进入 CentOS 7 系统</p>
+<p><strong>如果重启发现直接进入window系统，那么重启，在开机的时候按住“Esc”选择 CentOS Linux 系统即可</strong></p>
+<h4 id="3-后续可能需要解决的问题">3 后续可能需要解决的问题</h4>
+<h5 id="3-1-分辨率低且无法选择高分辨率">3.1 分辨率低且无法选择高分辨率</h5>
+<p><strong>问题描述</strong><br>
+进入 CentOS 7 系统，图形化界面只有一两个低分辨率选项，无法选择高分辨率来适配显示器。</p>
+<p><strong>解决方案</strong><br>
+禁用系统自带的显卡驱动，安装NVIDIA显卡驱动，参考 <a href="https://www.eurekatesla.com/2020/10/11/CentOS-7-%E9%85%8D%E7%BD%AE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">CentOS 7 配置深度学习基本环境</a> 中步骤 <strong>1 安装 NVIDIA 显卡驱动</strong></p>
+<h5 id="3-2-无法读取ntfs格式的硬盘和u盘">3.2 无法读取ntfs格式的硬盘和U盘</h5>
+<p><strong>问题描述</strong><br>
+CentOS 7 无法读取 ntfs 格式的硬盘和U盘（Filesystem type ntfs not configured in kernel）</p>
+<p><strong>解决方案</strong><br>
+通过安装 fuse-ntfs-3g 解决<br>
+进入<code>su root</code>，输入密码进入 root 权限<br>
+安装阿里源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;epel-7.repo</span><br></pre></td></tr></table></figure>
+<p>安装ntfs-3g</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntfs-3g</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/" rel="tag">CentOS 7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows-10/" rel="tag">Windows 10</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/" rel="tag">双系统</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/04/02/Windows-10-%E9%85%8D%E7%BD%AE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Windows 10 配置深度学习基本环境
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/11/CentOS-7-%E9%85%8D%E7%BD%AE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">CentOS 7 配置深度学习基本环境</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "SwWR9JMlV8zu7f6c2vc8odT2-gzGzoHsz",
+    app_key: "A7lvTe6NJ6a50IN7OhMdHAcz",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+
+<script src="/js/clickBoom2.js"></script>
+
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+
+</html>

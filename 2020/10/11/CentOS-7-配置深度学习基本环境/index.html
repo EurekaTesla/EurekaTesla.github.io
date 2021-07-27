@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    CentOS 7 配置深度学习基本环境 |  Eureka Tesla
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+</html>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="[post]-CentOS-7-配置深度学习基本环境"
+  class="article article-type-[post]"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  CentOS 7 配置深度学习基本环境
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/11/CentOS-7-%E9%85%8D%E7%BD%AE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time datetime="2020-10-11T15:16:40.000Z" itemprop="datePublished">2020-10-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83/">深度学习环境</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">13 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><strong>包括在 CentOS 7 安装 NVIDIA 显卡驱动，CUDA和cuDNN，TensorFlow</strong></p>
+<p><strong>注意CUDA和cuDNN的版本要和TensorFlow版本保持一致，下面会有介绍</strong></p>
+<p><strong>本教程在RTX20系列显卡上进行，注意RTX30系列显卡需要较高版本的CUDA，对应的TensorFlow版本也不同</strong></p>
+<p>内容比较繁琐，一步步慢慢来</p>
+<h2 id="more"><a id="more"></a></h2>
+<p><strong>深度学习工作站硬件</strong><br>
+CPU：Inter Core i9-9900K @ 3.60GHz<br>
+RAM：32G<br>
+GPU：七彩虹 RTX 2080 SUPER Advanced OC<br>
+主板：技嘉 Z390<br>
+固态：金士顿 1T</p>
+<p><strong>深度学习工作站环境</strong><br>
+TensorFlow：1.8.0<br>
+CUDA：9.0.176<br>
+cuDNN：7.0.5  for CUDA9.0</p>
+<h4 id="1-安装-nvidia-显卡驱动">1 安装 NVIDIA 显卡驱动</h4>
+<h5 id="1-1-查看是否有安装历史">1.1 查看是否有安装历史</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<p>如果没有找到命令，则说明驱动没有安装。</p>
+<p>从官网选择符合当前服务器显卡型号的驱动<a href="https://www.nvidia.cn/Download/index.aspx?lang=cn" target="_blank" rel="noopener">NVIDIA 驱动程序下载</a></p>
+<h5 id="1-2-安装基础-rmp-依赖包">1.2 安装基础 rmp 依赖包</h5>
+<ul>
+<li>安装Nvidia驱动所需要的依赖包为kernel-devel、gcc、dkms。</li>
+<li>验证cudn，编译并运行验证Sample代码所需要的依赖包为gcc-c++。</li>
+</ul>
+<p><strong>① 确认并安装对应服务器内核版本的kernel-devel包</strong></p>
+<p>首先确认当前服务器的内核版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<p>然后查看当前yum环境中提供的kernel-devel包的版本是否一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list|grep kernel-devel</span><br></pre></td></tr></table></figure>
+<p>如果一致则接着下一步，不一致则更换一个和当前内核一致的版本。</p>
+<p><strong>② 安装rpm包</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc dkms gcc-c++</span><br></pre></td></tr></table></figure>
+<h5 id="1-3-禁用-nouveau">1.3 禁用 nouveau</h5>
+<ul>
+<li>有的博主说<strong>1.3</strong>这一步可以省略，不过我没验证过，所以能进行这一步还是进行</li>
+</ul>
+<p><strong>① 查看系统自带的驱动</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
+<p>如果有结果，则说明存在nouveau。没有则直接跳过<strong>1.3 禁用 nouveau</strong>这一步</p>
+<p><strong>② 编辑文件</strong></p>
+<p>打开文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;lib&#x2F;modprobe.d&#x2F;dist-blacklist.conf</span><br></pre></td></tr></table></figure>
+<p>按<strong>i</strong>开始编辑，先注释 nvidiafb</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#blacklist nvidiafb</span><br></pre></td></tr></table></figure>
+<p>然后添加如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset&#x3D;0</span><br></pre></td></tr></table></figure>
+<p>按<strong>esc</strong>退出编辑，再键入<code>:wq!</code>后回车，即可保存编辑</p>
+<p><strong>③ 重启服务器</strong></p>
+<p>重启服务器后进入 dos 界面，而不是图形界面，如果没有自动切换到 dos 界面，可<code> init 3</code>进入并登录，然后进入管理员权限。</p>
+<h5 id="1-4-安装-nvidia-驱动">1.4 安装 NVIDIA 驱动</h5>
+<p><strong>① 终端通过 cd 进入保存 NVIDIA 驱动程序的目录，然后查看</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Downlosds</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p><strong>② 对下载后对文件添加可执行权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x NVIDIA-Linux-x86_64-455.38.run</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong> 驱动文件名<font color="red"> NVIDIA-Linux-x86_64-455.38.run </font>改为自己下载的驱动文件名</p>
+<p><strong>③ 安装驱动</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;NVIDIA-Linux-x86_64-455.38.run --kernel-source-path&#x3D;&#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1127.el7.x86_64</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong></p>
+<ul>
+<li>驱动文件名 <font color="red"> NVIDIA-Linux-x86_64-455.38.run </font> 和 <font color="red"> 3.10.0-1127.el7.x86_64 </font>都要改为自己下载的驱动名称和内核版本（查看内核版本：<code>uname -r</code>）</li>
+<li>注意第一个（如下）选项选择<strong>Yes</strong>，其余选择默认的然后回车</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Would you like to register the kernel module sources with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later.</span><br></pre></td></tr></table></figure>
+<p><strong>④ 检查是否安装成功</strong><br>
+执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<p>显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 440.82       Driver Version: 440.82       CUDA Version: 10.2     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage&#x2F;Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">|   0  GeForce RTX 208...  Off  | 00000000:01:00.0  On |                  N&#x2F;A |</span><br><span class="line">| 37%   28C    P8    11W &#x2F; 250W |    231MiB &#x2F;  7981MiB |      1%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">|    0      1908      G   &#x2F;usr&#x2F;bin&#x2F;X                                   120MiB |</span><br><span class="line">|    0      3183      G   &#x2F;usr&#x2F;bin&#x2F;gnome-shell                         109MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一行表示当前显卡驱动的版本和显卡支持的CUDA的版本，注意：这里支持CUDA的版本是只能够支持的最高版本，是可以向下兼容的</li>
+<li>GPU：本机的GPU编号</li>
+<li>Persistence-M：驱动常驻模式，如果设置为ON，则GPU功耗大但是启动新deGPU应用花费的时间更少</li>
+<li>Fan：风扇转速百分比</li>
+<li>Temp：显卡温度</li>
+<li>Perf：当前的性能状态，P0最高，P12最低</li>
+<li>Pwr：但前能耗</li>
+<li>Bus-Id：GPU总线</li>
+<li>Disp.A：GPU显示功能是否初始化</li>
+<li>Memory-Usage：显存的使用情况</li>
+<li>Volatile GPU-Util：浮动的GPU利用率</li>
+<li>ECC：ECC是一种能够实现“错误检查和纠正”的技术，ECC内存就是应用了这种技术的内存，一般多应用在服务器及图形工作站上，可提高计算机运行的稳定性和增加可靠性</li>
+<li>Compute M：计算模式</li>
+<li>Processes：每块GPU的进程情况</li>
+</ul>
+<hr>
+<p>注：如果要进入图形化界面，请阅读下面的图形化界面切换以及设置开机进入方式</p>
+<p><strong>CentOS 7 启动与切换dos界面和图形界面</strong></p>
+<p><strong>① 设置开机启动界面</strong></p>
+<ul>
+<li>设置开机启动图形界面</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置开机启动dos界面</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure>
+<p><strong>② 切换dos界面和图形化界面</strong></p>
+<ul>
+<li>图形界面到dos界面：ctrl+alt+f2 或者 <code> init 3</code></li>
+<li>dos界面到图形界面：<code>startx</code> 或者 <code> init 5</code></li>
+</ul>
+<hr>
+<h4 id="2-安装-cuda-和-cudnn">2 安装 CUDA 和 cuDNN</h4>
+<h5 id="2-1-查看是否有安装历史">2.1 查看是否有安装历史</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
+<p>如果没有找到命令，则说明cuda没有安装。如果已经安装cuda，则会显示显示cuda版本信息</p>
+<h5 id="2-2-根据-tensortlow-版本确定-cuda-和-cudnn-要下载的版本">2.2 根据 TensorTlow 版本确定 CUDA 和 cuDNN 要下载的版本</h5>
+<ul>
+<li>TensorFlow 各个版本需要的CUDA版本以及Cudnn的对应关系可查看<a href="https://tensorflow.google.cn/install/source" target="_blank" rel="noopener">官网文档</a>末尾表格</li>
+<li>CUDA：GPU 编程的语言函数，和  TensorTlow 版本对应，<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">下载 CUDA</a> 后是 .run 文件。<strong>如果有补丁文件，则补丁一并下载安装！！！</strong></li>
+<li>cuDNN：深度学习/矩阵运算的加速库，和 TensorTlow 版本对应，需要在官网上注册后才能下载，<a href="https://developer.nvidia.com/zh-cn/cudnn" target="_blank" rel="noopener">下载 cuDNN</a> 后是 .tar 文件。<strong>注意，NVIDIA 官方有时会禁用了所有国内 IP 地址来下载关于AI方面的SDK，如果有梯子可通过翻后下载，没有就网上找一找对应版本的云盘资源</strong></li>
+</ul>
+<p><strong>因实验需求，这里安装 tensorflow-gpu==1.8.0，CUDA 9.0.176，cuDNN v7.0.5 for CUDA9.0</strong><br>
+<strong>注意对应软件下载选择Linux版本</strong></p>
+<h5 id="2-3-安装-cuda">2.3 安装 CUDA</h5>
+<p><strong>① 进入root权限并开始安装</strong><br>
+进入root权限：<code>su root</code>，然后输入密码进入</p>
+<p>执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">sh cuda_9.0.176_384.81_linux.run</span><br><span class="line"></span><br><span class="line"># 一直按空格按倒最后，进行一些选项</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line">Do you accept the previously read EULA?</span><br><span class="line">accept&#x2F;decline&#x2F;quit:   accept</span><br><span class="line"></span><br><span class="line"># 关键！！！之前已经安装过高版本驱动，这里一定要键入 n</span><br><span class="line">Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: n</span><br><span class="line"></span><br><span class="line">Install the CUDA 9.0 Toolkit?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: y</span><br><span class="line"></span><br><span class="line">Enter Toolkit Location</span><br><span class="line"> [ default is &#x2F;usr&#x2F;local&#x2F;cuda-9.0 ]: </span><br><span class="line"></span><br><span class="line">Do you want to install a symbolic link at &#x2F;usr&#x2F;local&#x2F;cuda?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: y</span><br><span class="line"></span><br><span class="line">Install the CUDA 9.0 Samples?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: y</span><br><span class="line"></span><br><span class="line">Enter CUDA Samples Location</span><br><span class="line"> [ default is &#x2F;root ]: </span><br><span class="line"></span><br><span class="line">Installing the CUDA Toolkit in &#x2F;usr&#x2F;local&#x2F;cuda-9.0 ...</span><br><span class="line"># 等待安装</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 安装完成显示内容类似下面</span><br><span class="line">Missing recommended library: libGLU.so</span><br><span class="line">Missing recommended library: libXi.so</span><br><span class="line">Missing recommended library: libXmu.so</span><br><span class="line">Missing recommended library: libGL.so</span><br><span class="line"></span><br><span class="line">Installing the CUDA Samples in &#x2F;root ...</span><br><span class="line">Copying samples to &#x2F;root&#x2F;NVIDIA_CUDA-9.0_Samples now...</span><br><span class="line">Finished copying samples.</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&#x3D; Summary &#x3D;</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Driver:   Not Selected</span><br><span class="line">Toolkit:  Installed in &#x2F;usr&#x2F;local&#x2F;cuda-9.0</span><br><span class="line">Samples:  Installed in &#x2F;root, but missing recommended libraries</span><br><span class="line"></span><br><span class="line">Please make sure that</span><br><span class="line"> -   PATH includes &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin</span><br><span class="line"> -   LD_LIBRARY_PATH includes &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64, or, add &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64 to &#x2F;etc&#x2F;ld.so.conf and run ldconfig as root</span><br><span class="line"></span><br><span class="line">To uninstall the CUDA Toolkit, run the uninstall script in &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin</span><br><span class="line"></span><br><span class="line">Please see CUDA_Installation_Guide_Linux.pdf in &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;doc&#x2F;pdf for detailed information on setting up CUDA.</span><br><span class="line"></span><br><span class="line">***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 384.00 is required for CUDA 9.0 functionality to work.</span><br><span class="line">To install the driver using this installer, run the following command, replacing &lt;CudaInstaller&gt; with the name of this run file:</span><br><span class="line">    sudo &lt;CudaInstaller&gt;.run -silent -driver</span><br><span class="line"></span><br><span class="line">Logfile is &#x2F;tmp&#x2F;cuda_install_11268.log</span><br></pre></td></tr></table></figure>
+<p>如果有补丁文件, 有类似的方法安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 例如</span><br><span class="line">sh cuda_9.0.176.1_linux.run</span><br></pre></td></tr></table></figure>
+<p><strong>题外话，如果不安装补丁，运行代码可能会出现 <code>Blas GEMM launch failed</code> 的错误，网上绝大多数都说是显存满了导致的，但是也有可能是 CUDA 的补丁没有安装，所以选择对应版本的 CUDA 时候，如果下面有补丁，应该都下载安装。例如我的环境下 CUDA 9.0 除了 Base Installer 之外，还有四个补丁：Path 1，Path 2，Path 3，Path 4。</strong></p>
+<p><strong>② 配置环境变量，修改/etc/profile文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<p>按<strong>i</strong>开始键入下面内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;$&#123;PATH&#125;:&#x2F;usr&#x2F;local&#x2F;cuda&#x2F;bin</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;$&#123;LD_LIBRARY_PATH&#125;:&#x2F;usr&#x2F;local&#x2F;cuda&#x2F;lib64</span><br></pre></td></tr></table></figure>
+<p>接着按<strong>esc</strong>，然后键入<code>wq!</code>保存</p>
+<p>最后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<p><strong>③ 验证 CUDA</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Downloads]# nvcc -V</span><br><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2017 NVIDIA Corporation</span><br><span class="line">Built on Fri_Sep__1_21:08:03_CDT_2017</span><br><span class="line">Cuda compilation tools, release 9.0, V9.0.176</span><br></pre></td></tr></table></figure>
+<h5 id="2-4-安装-cudnn">2.4 安装 cuDNN</h5>
+<p><strong>① 解压 cuDNN 的 .tar 包</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf cudnn-9.0-linux-x64-v7.tar</span><br></pre></td></tr></table></figure>
+<p>注意这里解压后的文件目录叫做“cuda”</p>
+<p><strong>② 将解压后的文件复制到cuda的安装后的目录中</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp cuda&#x2F;include&#x2F;cudnn.h &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;include</span><br><span class="line">cp cuda&#x2F;lib64&#x2F;libcudnn* &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64</span><br><span class="line"># 注意根据自己cuda版本修改命令中对应的地方</span><br></pre></td></tr></table></figure>
+<p><strong>③ 将上面复制后的文件全部添加“a+r”权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod a+r &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;include&#x2F;cudnn.h  &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64&#x2F;libcudnn*</span><br><span class="line"># 注意根据自己cuda版本修改命令中对应的地方</span><br></pre></td></tr></table></figure>
+<h4 id="3-安装-tensorflow-的-gpu-版本">3 安装 TensorFlow 的 GPU 版本</h4>
+<p>最后一步了，也是简单的一步</p>
+<p><strong>前面 CUDA 和 cuDNN 版本都是根据 tensorflow-gpu==1.8.0 来配置的</strong>，所以我们来安装 TensorFlow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu&#x3D;&#x3D;1.8.0</span><br></pre></td></tr></table></figure>
+<p>国内下载速度慢可用清华镜像下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple  tensorflow-gpu&#x3D;&#x3D;1.8.0</span><br></pre></td></tr></table></figure>
+<p>如果没有发现 pip，按照下面进行安装，在 Python2.7 的安装包中，easy_install.py 是默认安装的，而 pip 需要我们手动安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<p>然后再安装 TensorFlow 试试</p>
+<p>如果还出现如下问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Cannot uninstall &#39;enum34&#39;. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall.</span><br></pre></td></tr></table></figure>
+<p>可以通过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install --ignore-installed enum34</span><br></pre></td></tr></table></figure>
+<p>接着再安装TensorFlow 试试，如果安装成功，将出现如下提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully installed absl-py-0.11.0 astor-0.8.1 bleach-1.5.0 gast-0.4.0 grpcio-1.33.2 html5lib-0.9999999 markdown-3.1.1 numpy-1.16.6 protobuf-3.13.0 tensorboard-1.8.0 tensorflow-gpu-1.8.0 werkzeug-1.0.1 wheel-0.35.1</span><br></pre></td></tr></table></figure>
+<p>因实验需要还安装了 Keras 2.1.6</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple  Keras&#x3D;&#x3D;2.1.6</span><br></pre></td></tr></table></figure>
+<h4 id="4-其他">4 其他</h4>
+<h5 id="4-1-卸载-cuda-和-cudnn">4.1 卸载 CUDA 和 cuDNN</h5>
+<p><strong>只针对对于.run方式安装的卸载</strong></p>
+<p><strong>① 卸载 CUDA</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin&#x2F;uninstall_cuda_9.0.pl</span><br></pre></td></tr></table></figure>
+<p>注意其中9.0修改为自己对应的版本号</p>
+<p><strong>② 卸载 cuDNN</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;lib64&#x2F;libcudnn</span><br><span class="line">sudo rm -rf &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;include&#x2F;cudnn.h</span><br></pre></td></tr></table></figure>
+<h5 id="4-2-查看-tensorflow-cuda-和-cudnn-等版本">4.2 查看 TensorFlow、CUDA 和 cuDNN 等版本</h5>
+<p><strong>① 查看 TensorFlow 版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python</span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">tf.__version__</span><br></pre></td></tr></table></figure>
+<p><strong>② 查看 CUDA 版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
+<p><strong>③ 查看 cuDNN 版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;include&#x2F;cudnn.h | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure>
+<p><strong>④ 查看 Keras 版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python</span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import keras</span><br><span class="line">keras.__version__</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/" rel="tag">CentOS 7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TensorFlow/" rel="tag">TensorFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cuDNN/" rel="tag">cuDNN</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/11/12/Windows-10-%E5%92%8C-CentOS-7-%E5%8F%8C%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Windows 10 和 CentOS 7 双系统
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/12/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8-Part-2%EF%BC%9ACNN%EF%BC%8CDPM-%E5%92%8C-Overfeat/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">目标检测入门 Part 2：CNN，DPM 和 Overfeat</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "SwWR9JMlV8zu7f6c2vc8odT2-gzGzoHsz",
+    app_key: "A7lvTe6NJ6a50IN7OhMdHAcz",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+
+<script src="/js/clickBoom2.js"></script>
+
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+
+</html>

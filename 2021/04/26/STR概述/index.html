@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    STR 深度学习算法综述 |  Eureka Tesla
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+</html>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="[post]-STR概述"
+  class="article article-type-[post]"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  STR 深度学习算法综述
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/26/STR%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2021-04-26T12:53:04.000Z" itemprop="datePublished">2021-04-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/STR/">STR</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">13 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>随着深度学习在计算机视觉上的巨大成功，越来越多的场景文字检测和识别引入深度学习。本文旨在总结和分析场景文字检测与识别在深度学习时代的主要变化和重大进展，还将分析现状和未来的研究趋势。</p>
+<h2 id="more"><a id="more"></a></h2>
+<h4 id="什么是-str">什么是 STR</h4>
+<p>光学字符识别（Optical Character Recognition, OCR）传统上指对输入扫描文档图像进行分析处理，识别出图像中文字信息。场景文字识别（Scene Text Recognition, STR）指识别自然场景图片中的文字信息。也有人将 OCR 泛指所有图像文字检测和识别技术，包括 OCR 和 STR。</p>
+<p>对于 STR，主要存在两种方案：</p>
+<ol>
+<li>文字检测＋文字识别</li>
+<li>端到端的文字识别模型</li>
+</ol>
+<h4 id="str-研究背景和发展现状">STR 研究背景和发展现状</h4>
+<p><strong>三个挑战</strong></p>
+<ol>
+<li>自然场景中文本的多样性与可变性</li>
+<li>背景的复杂性和干扰</li>
+<li>成像条件不理想</li>
+</ol>
+<p><strong>转折点</strong><br>
+在深度学习能够像在其他领域一样在计算机视觉领域显示出其潜力之前，这些困难一直存在。随着深度学习在 AlexNet 赢得 ILSVRC2012 比赛后变得引人注目，研究人员转向用深度神经网络进行自动特征学习，并开始进行更深入的研究。</p>
+<p><strong>最近进展</strong><br>
+近年来取得的进展总结如下：</p>
+<ol>
+<li>
+<p><strong>融入深度学习</strong> 几乎所有最近的方法都建立在深度学习模型的基础上。最重要的是，深度学习将研究人员从反复设计和测试手工设计特征的繁重工作中解放出来，这使得大量的工作更加深入。具体而言，如 Fig.1 所示，使用深度学习本质上简化了整个流程。此外，这些算法在标准基准上比以前的算法有显著的改进。基于梯度的训练程序也有助于端到端的训练方法。</p>
+</li>
+<li>
+<p><strong>面向挑战的算法和数据集</strong> 研究人员现在转向更具体的方面和挑战。 在现实世界中遇到困难时，收集了具有独特和代表性特征的新发布的数据集。 例如，存在具有长文本，模糊文本和弯曲文本的数据集。 在这些数据集的驱动下，近年来发布的几乎所有算法都旨在解决特定挑战。 例如，提出了一些检测定向文本的方法，而另一些则针对模糊和未聚焦的场景图像。 这些想法也被组合起来以形成更多通用的方法。</p>
+</li>
+<li>
+<p><strong>辅助技术的进步</strong><br>
+除了专门用于主要任务的新数据集和模型之外，也有相关的辅助技术在发展。例如合成数据和引导程序。</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20210416%E5%85%B8%E5%9E%8B%E7%9A%84%E5%9C%BA%E6%99%AF%E6%96%87%E6%9C%AC%E6%A3%80%E6%B5%8B%E4%B8%8E%E8%AF%86%E5%88%AB%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="20210416典型的场景文本检测与识别的系统流程图"><br>
+<em>Fig.1 典型的场景文本检测与识别的系统流程图。（a）和（b）是具有代表性的多步骤方法。（c）和（d）是简化的流程。在（c）中，检测器和识别器是分开的。在（d）中，检测器将裁剪后的特征图传递给识别器，从而允许端到端训练。</em></p>
+<h4 id="深度学习之前的-str">深度学习之前的 STR</h4>
+<p>这部分将简单回顾一下深度学习时代之前的算法，包括文字检测、文字识别和端到端</p>
+<h5 id="1-文本检测">1.文本检测</h5>
+<p>(1) 连接成分分析（Connected Components Analysis,CCA）<br>
+(2) 基于滑动窗口（Sliding Window,SW）的分类</p>
+<h5 id="2-文本识别">2.文本识别</h5>
+<p>(1) 基于特征的方法<br>
+(2) 将识别过程分解为一系列子问题：文本二值化、文本行分割、字符分割、单个字符识别和单词校正</p>
+<h5 id="3-端到端">3.端到端</h5>
+<p>也有人致力于集成（即我们今天所称的端到端）系统，这里不介绍了。</p>
+<p>总得来说，深度学习时代之前的文本检测与识别方法主要是提取低层或中层手工制作的图像特征，这些特征包含了复杂且重复的预处理和后处理步骤。受限于手工特征的有限表示能力和流程的复杂性，这些方法很难处理复杂的情况，例如 ICDAR 2015 数据集中的模糊图像。</p>
+<h4 id="深度学习时代的-str">深度学习时代的 STR</h4>
+<p>近年来的研究方法主要有以下两个特点：（1）大多数方法采用基于深度学习的模型；（2）大多数研究者从不同的角度来研究问题，试图解决不同的挑战。由深度学习驱动的方法的优点是，自动特征学习可以避免我们设计和测试大量潜在的手工特征。同时，来自不同观点的研究人员正在丰富和推动社区进行更深入的工作，针对不同的目标，例如更快更简单的流程、不同长宽比的文本和合成数据。深度学习的引入彻底改变了研究人员处理任务的方式，并扩大了研究范围。</p>
+<p>首先，我们将其分为四类系统：</p>
+<ol>
+<li><strong>文本检测</strong>，对自然图像中的文本进行检测和定位；</li>
+<li><strong>文本识别</strong>，将检测到的文本区域的内容转录并转换为语言符号；</li>
+<li><strong>端到端系统</strong>，在一个统一的流程中执行文本检测和识别；</li>
+<li><strong>辅助系统</strong>旨在支持文本检测和识别主要任务的方法，例如合成数据生成。</li>
+</ol>
+<p>在每个类别下，我们从不同的角度回顾最近的方法。</p>
+<h5 id="1-文本检测">1.文本检测</h5>
+<p>虽然场景文本检测按照类别可以归入一般的目标检测。一般的目标检测分为一阶段检测和两阶段检测，许多场景文本检测算法主要是受一般目标检测器的启发并遵循其设计。然而，场景文本的检测具有不同的特点和挑战，需要独特的方法和解决方案。因此，许多方法依赖于场景文本的特殊表示来解决这些重要的问题。</p>
+<p>因此，场景文本检测算法的发展经历了三个主要阶段：<br>
+(1) 第一阶段，基于学习的方法都有多步流程，但这些方法仍然缓慢复杂。<br>
+(2) 第二阶段，将一般目标检测的思想和方法成功地植入到该任务中。<br>
+(3) 第三阶段，研究人员设计了基于子文本组件的特殊表示，以解决长文本和不规则文本的挑战。</p>
+<p><strong>1.1 利用深度学习的早期尝试</strong></p>
+<p>基于早期深度学习的方法将文本检测的任务分为多个步骤。他们使用卷积神经网络（CNN）预测局部片段，然后应用启发式后处理步骤将片段合并为检测路线。</p>
+<p>在这个阶段，场景文本检测算法仍然有很长很慢的流程，尽管他们已经用基于学习的方法替换了一些手工制作的特征。设计方法是自下而上的，并基于关键组件，如单个字符和文本中心线。</p>
+<p><strong>1.2 受目标检测启发的方法</strong></p>
+<p><strong>主要方法：<br>
+<a href="https://ojs.aaai.org/index.php/AAAI/article/view/11196/11055" target="_blank" rel="noopener">TextBoxes</a>/<a href="https://arxiv.org/pdf/1801.02765.pdf" target="_blank" rel="noopener">TextBoxes++</a>/<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Zhou_EAST_An_Efficient_CVPR_2017_paper.pdf" target="_blank" rel="noopener">EAST</a></strong></p>
+<p>后来，研究人员从快速发展的通用目标检测算法中得到启示。在此阶段，通过修改通用检测器的区域建议和边界框回归模块来设计场景文本检测算法，以直接定位文本实例。它们主要由叠加的卷积层组成，将输入图像编码成特征图。特征图上的每个空间位置对应于输入图像的一个区域。然后将特征映射输入分类器，以预测文本实例在每个空间位置的存在性和定位。这些方法大大减少了流程，使得训练更容易，推理速度更快。</p>
+<p>这一阶段的主要贡献是简化了检测流程并提高了效率。然而，由于感受野的限制，单阶段方法在面对扭曲、定向或长文本时，其性能有限，而两阶段方法的效率有限。</p>
+<p><strong>1.3 基于子文本组件的方法</strong></p>
+<p><strong>像素级方法：<a href="https://ojs.aaai.org/index.php/AAAI/article/view/12269/12128" target="_blank" rel="noopener">PixelLink</a><br>
+组件级方法：<a href="https://arxiv.org/pdf/1609.03605.pdf" target="_blank" rel="noopener">CTPN</a>/<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Shi_Detecting_Oriented_Text_CVPR_2017_paper.pdf" target="_blank" rel="noopener">SegLink</a>/<a href="https://openaccess.thecvf.com/content_ECCV_2018/papers/Shangbang_Long_TextSnake_A_Flexible_ECCV_2018_paper.pdf" target="_blank" rel="noopener">TextSnake</a><br>
+字符级表示方法：<a href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Baek_Character_Region_Awareness_for_Text_Detection_CVPR_2019_paper.pdf" target="_blank" rel="noopener">具体可看论文</a></strong></p>
+<p>文本检测与一般目标检测的主要区别在于，文本作为一个整体是同质的，具有局部性，这与一般目标检测不同。通过同质性和局部性，我们指出文本实例的任何部分仍然是文本的属性。人类不必看到整个文本实例就知道它属于某个文本。</p>
+<p>这样的特性为文本检测方法的一个新分支奠定了基础，该分支只预测子文本组件，然后将它们组装到文本实例中。这些方法，就其性质而言，可以更好地适应上述扭曲，定向和长文本。</p>
+<p>其中，CTPN 是在 ECCV 2016 提出的一种文字检测算法。CTPN 结合 CNN 与 LSTM 深度网络，能有效的检测出复杂场景的横向分布的文字，是目前比较好的文字检测算法。</p>
+<p>这个阶段的方法使用神经网络来预测局部属性或片段，并使用后处理步骤来重建文本实例。与早期的多阶段方法相比，它们更多地依赖于神经网络，流程更短。</p>
+<h5 id="2-文本识别">2.文本识别</h5>
+<p>输入是仅包含一个单词的裁剪的文本实例图像。</p>
+<p><strong>主要方法：</strong><br>
+<strong>CRNN：CNN+RNN+<a href="https://mediatum.ub.tum.de/doc/1292048/file.pdf" target="_blank" rel="noopener">CTC</a></strong><br>
+首先CNN提取图像卷积特征<br>
+然后LSTM进一步提取图像卷积特征中的序列特征<br>
+最后引入CTC解决训练时字符无法对齐的问题</p>
+<p><strong>CNN+<a href="https://arxiv.org/pdf/1409.3215.pdf" target="_blank" rel="noopener">Seq2Seq</a>+<a href="https://arxiv.org/pdf/1409.0473.pdf?utm_source=ColumnsChannel" target="_blank" rel="noopener">Attention</a></strong><br>
+与经典RNN结构不同的是，Seq2Seq结构不再要求输入和输出序列有相同的时间长度！</p>
+<p><strong>2.1 基于CTC的方法</strong></p>
+<p>语音识别采用 CTC 解码模块，数据在时域上是连续的。为了将 CTC 应用于场景文本识别，将输入图像视为一系列垂直像素帧（说人话就是把输入图像按照垂直方向分为一个个小块，每个小块视为时域上的一帧。类似朗读英文，按照一个方向阅读并说出来，这样就将图像转换为语音了）。网络输出每帧预测，指示每帧的标签类型的概率分布。然后应用 CTC 规则编辑文本字符串的每帧预测。在训练过程中，损失被计算为所有可能的性能帧预测的负对数概率之和，这些性能帧预测可以通过 CTC 规则生成目标序列。因此，CTC 方法使得它只需要单词级的注释就可以进行端到端的训练，而不需要字符级的注释（也就是朗读英文中只需要知道每个单词怎么读，没必要具体到每个字母）。CTC 在 OCR 领域的首次应用可以追溯到 2008 年 <a href="https://mediatum.ub.tum.de/doc/1289307/file.pdf" target="_blank" rel="noopener">Graves等人的手写识别系统</a>。目前该技术已广泛应用于场景文本识别。</p>
+<p>第一次尝试可以称为卷积递归神经网络（CRNN）。这些模型是将 RNN 叠加在 CNN 上，利用 CTC 进行训练和推断。<a href="https://ojs.aaai.org/index.php/AAAI/article/view/10465/10324" target="_blank" rel="noopener">DTRN</a>是第一个 CRNN 模型。它将 CNN 模型滑动到输入图像上，生成卷积的特征切片，然后将其输入 RNN。</p>
+<p><strong>2.2 基于编解码器（Seq2Seq）方法</strong><br>
+用于序列到序列学习的编码器-解码器框架最初在 Seq2Seq 中针对机器翻译提出。编码器 RNN 读取输入序列并将其最终潜在状态传递给解码器 RNN，解码器 RNN 以自回归的方式生成输出。编码器-解码器框架的主要优点是可以提供可变长度的输出，满足场景文本识别的任务设置。编码器-解码器框架通常与注意力机制（Attention Mechanism）相结合，后者共同学习对齐输入序列和输出序列。</p>
+<p><strong>基于 CTC 和 编解码器方法的优缺点</strong><br>
+CTC 和编解码框架都简化了识别流程，使得只使用单词级注释而不是字符级注释来训练场景文本识别器成为可能。与 CTC 相比，编解码框架的解码模块是一个隐式的语言模型，因此可以包含更多的语言先验知识。出于同样的原因，编解码器框架需要更大的训练数据集和更大的词汇量。否则，当阅读训练过程中看不见的单词时，模型可能退化。相反，CTC 对语言模型的依赖性较小，并且具有更好的字符-像素对齐。因此，在汉字和日语等字符集较大的语言上，它可能会更好。这两种方法的主要缺点是假设文本是直的，因此不能适应不规则文本。</p>
+<p><strong>2.3 不规则文本识别的自适应</strong><br>
+尽管已经提出了许多优雅而简洁的解决方案，但它们仅基于一个相对较小的数据集（CUTE80）进行评估和比较，CUTE80 只包含 288 个单词的样本。此外，这些工作中使用的训练数据集只包含很少比例的不规则文本样本。对更大的数据集和更合适的训练数据集的评估可以帮助我们更好地理解这些方法。</p>
+<h5 id="3-端到端系统">3.端到端系统</h5>
+<p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20210422%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%B3%BB%E7%BB%9F.png" alt="20210422端到端系统"><br>
+<em>Fig.2 （a）两步式流程，（b）两段式流程，（c）一段式流程</em></p>
+<p>在过去，文本检测和识别通常被看作是两个独立的子问题，最近，许多端到端的文本检测和识别系统被提出。</p>
+<p><strong>两步式流程</strong><br>
+将检测词（早期是单个字符，近期是单词或者行）的<strong>图像</strong>从整个图像中裁剪出来，然后输入给识别网络。检测和识别是两个独立的步骤。两步方法的一个主要缺点是检测和识别模型之间的误差传播会导致性能不佳。</p>
+<p><strong>两段式流程</strong><br>
+将检测词的<strong>特征图</strong>提取出来，然后输入给识别网络。</p>
+<p><strong>一段式流程</strong></p>
+<p><a href="http://openaccess.thecvf.com/content_ICCV_2019/papers/Xing_Convolutional_Character_Networks_ICCV_2019_paper.pdf" target="_blank" rel="noopener">Xing等人</a>并行预测字符和文本边界框以及字符类型分割图。然后使用文本边界框对字符框进行分组，形成最终的单词转录结果。这是<strong>第一个一段式方法</strong>。</p>
+<h5 id="4-辅助系统">4.辅助系统</h5>
+<p><strong>合成数据</strong></p>
+<p><strong>弱监督和半监督</strong></p>
+<h4 id="数据集和评估方法">数据集和评估方法</h4>
+<p><strong>数据集</strong><br>
+<img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20210422STR%E6%95%B0%E6%8D%AE%E9%9B%86.png" alt="20210422STR数据集"><br>
+<em>Fig.3 数据集</em></p>
+<p><strong>评估方法</strong><br>
+详情看<strong>Reference</strong>给出的原论文</p>
+<h4 id="挑战和未来趋势">挑战和未来趋势</h4>
+<p>更大更好的数据集<br>
+语言多且复杂<br>
+模型的鲁棒性<br>
+模型泛化能力<br>
+评估指标<br>
+效率</p>
+<h4 id="reference">Reference</h4>
+<p><a href="https://arxiv.org/pdf/1811.04256.pdf" target="_blank" rel="noopener">Scene Text Detection and Recognition: The Deep Learning Era</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Attention/" rel="tag">Attention</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRNN/" rel="tag">CRNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTC/" rel="tag">CTC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTPN/" rel="tag">CTPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OCR/" rel="tag">OCR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STR/" rel="tag">STR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Seq2Seq/" rel="tag">Seq2Seq</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/04/02/Windows-10-%E9%85%8D%E7%BD%AE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Windows 10 配置深度学习基本环境</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "SwWR9JMlV8zu7f6c2vc8odT2-gzGzoHsz",
+    app_key: "A7lvTe6NJ6a50IN7OhMdHAcz",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> Eureka Tesla
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+
+<script src="/js/clickBoom2.js"></script>
+
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+
+</html>
