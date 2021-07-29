@@ -121,7 +121,7 @@ GPU：Nvidia GeForce RTX 3090 (24GB / 微星)<br>
 <center>图2.压缩卷</center>
 <p><strong>③ 分出 Linux 至少 50G 空间</strong>根据需求可分更大</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE3.png" alt="图3"></p>
-<center>图3.分出Linux的 50G 空间</center>
+<center>图3.分出 Linux 的 50G 空间</center>
 <h5 id="1-2-制作启动盘">1.2 制作启动盘</h5>
 <p><strong>① 先准备一个U盘，格式化后后续作为 CentOS 7 系统盘</strong><br>
 这个U盘里的有用的数据注意要提前保存</p>
@@ -143,14 +143,14 @@ GPU：Nvidia GeForce RTX 3090 (24GB / 微星)<br>
 <h5 id="2-1-bios-设置u盘自启动">2.1 BIOS 设置U盘自启动</h5>
 <p><strong>关机，开机，进入 BIOS 界面</strong><br>
 不同品牌主板进入 BIOS 的方式可能不同，可以依据自己主板品牌<a href="www.baidu.com">百度一下</a>。<br>
-我的是微星主板（开机后一直按键盘“Delete”键来进入BIOS界面）。<br>
-目前第一启动项为硬盘1启动，查看U启的启动项在哪里，下图中为第5项，也就是“USB Key”，</p>
+我的是微星主板（开机后一直按键盘 “Delete” 键来进入 BIOS 界面）。<br>
+目前第一启动项为硬盘1启动，查看U启的启动项在哪里，下图中为第5项，也就是 “USB Key”，</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE8.1.jpeg" alt="20201111图8.1"></p>
 <center>图8.查看第一启动项</center>
-<p>需要将U盘作为第一启动项，那么就将“USB Key”拖动到第一的位置。</p>
+<p>需要将U盘作为第一启动项，那么就将 “USB Key” 拖动到第一的位置。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE9.jpeg" alt="图9"></p>
 <center>图9.将U盘作为第一启动项</center>
-<p>然后，按下键盘的 F10 键保存修改，并点击“Yes”<br>
+<p>然后，按下键盘的 F10 键保存修改，并点击 “Yes”<br>
 完成第一启动项的修改之后电脑会进行重启，不需要在操作即可直接进入U启。</p>
 <h5 id="2-2-配置并进入图形界面">2.2 配置并进入图形界面</h5>
 <p>完成<strong>2.1</strong>的设置之后，电脑会进入如下界面<br>
@@ -174,10 +174,10 @@ initrdefi/images/pxeboot/initrd.img</p>
 <p><strong>解决方法：</strong><br>
 终端键入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dracut:&#x2F;# cd &#x2F;dev</span><br><span class="line">dracut:&#x2F;dev# ls</span><br></pre></td></tr></table></figure>
-<p>然后在终端显示的内容中找出我的启动盘是<strong>sda4</strong>，而非上面的<strong>sdb4</strong>(因不同电脑会有区别)</p>
+<p>然后在终端显示的内容中找出我的启动盘是 <strong>sda4</strong>，而非上面的 <strong>sdb4</strong>(因不同电脑会有区别)</p>
 <p>然后重启</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dracut:&#x2F;dev# reboot</span><br></pre></td></tr></table></figure>
-<p>重新选择选中Install CentOS Linux 7，按e进入编辑模式，并将<strong>2.2</strong>需要修改的修改地方改为<font color="green"> /dev/sda4:/ </font>，然后Ctrl+X即可</p>
+<p>重新选择选中 Install CentOS Linux 7，按e进入编辑模式，并将 <strong>2.2</strong> 需要修改的修改地方改为<font color="green"> /dev/sda4:/ </font>，然后Ctrl+X即可</p>
 <hr>
 <h5 id="2-3-安装前软件选择和分区设置">2.3 安装前软件选择和分区设置</h5>
 <p>之后出现语言选择界面，选择“中文-简体中文”，进入如下界面<br>
@@ -225,7 +225,7 @@ initrdefi/images/pxeboot/initrd.img</p>
 </table>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE15.jpeg" alt="20201111图15"></p>
 <center>图15.添加并配置分区</center>
-<p>同样的方法建立swap、/boot、/home分区，这里需要注意的是 swap 的大小，一般来说，应该是实际内存的两倍，但是实际内存很大的话，设置 8G 也够了</p>
+<p>同样的方法建立 swap、/boot、/home 分区，这里需要注意的是 swap 的大小，一般来说，应该是实际内存的两倍，但是实际内存很大的话，设置 8G 也够了</p>
 <p>至于这个分区的类型，也就是 Device Type 这里，按照它默认就好，即/、swap、/home是 LVM 类型，/boot是标准分区</p>
 <p>分好区后，点击“完成”，弹出下面的窗口，直接点击“接受更改”</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE16.jpeg" alt="20201111图16"></p>
@@ -236,7 +236,7 @@ initrdefi/images/pxeboot/initrd.img</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20201111%E5%9B%BE17.jpeg" alt="20201111图17"></p>
 <center>图17.设置密码和账户</center>
 <p>等待进度完成，点击右下角“完成配置”，等待安装完成点击右下角“重启”进入 CentOS 7 系统</p>
-<p><strong>如果重启发现直接进入window系统，那么重启，在开机的时候按住“Esc”选择 CentOS Linux 系统即可</strong></p>
+<p><strong>如果重启发现直接进入 window 系统，那么重启，在开机的时候按住 “Esc” 选择 CentOS Linux 系统即可</strong></p>
 <h4 id="3-后续可能需要解决的问题">3 后续可能需要解决的问题</h4>
 <h5 id="3-1-分辨率低且无法选择高分辨率">3.1 分辨率低且无法选择高分辨率</h5>
 <p><strong>问题描述</strong><br>

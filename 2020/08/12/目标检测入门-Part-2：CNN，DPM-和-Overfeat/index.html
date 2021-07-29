@@ -102,7 +102,7 @@
     <div class="article-entry" itemprop="articleBody">
        
   <p><strong>在 &quot;目标检测入门&quot;系列第一部分介绍了：（1）图像梯度向量的概念以及 HOG 算法如何汇总一张图像中所有梯度向量的信息；（2）图像分割算法如何工作以检测可能包含对象的区域；（3）选择性搜索算法如何优化图像分割的结果，以获得更好的区域建议。</strong></p>
-<p><strong>第2部分介绍了几种用于图像分类的经典卷积神经工作架构设计（AlexNet，VGG，ResNet），以及用于对象识别的DPM（可变形零件模型）和Overfeat模型。</strong></p>
+<p><strong>第2部分介绍了几种用于图像分类的经典卷积神经工作架构设计（AlexNet，VGG，ResNet），以及用于对象识别的 DPM（可变形零件模型）和 Overfeat 模型。</strong></p>
 <h2 id="more"><a id="more"></a></h2>
 <blockquote>
 <p>转载声明: 本文参考 <a href="https://lilianweng.github.io/lil-log/" target="_blank" rel="noopener">Lil’Log</a> 的相关内容，并进行翻译和编辑</p>
@@ -124,7 +124,7 @@
 <li>使用数据增强技术来扩展训练数据集，例如图像平移，水平反射和块提取。</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20210105alex_net_illustration.png" alt="alex_net_illustration"><br>
-<em>Fig. 3. AlexNet的体系结构。 (Image source: <a href="http://vision03.csail.mit.edu/cnn_art/index.html" target="_blank" rel="noopener">link</a>)</em></p>
+<em>Fig. 3. AlexNet 的体系结构。 (Image source: <a href="http://vision03.csail.mit.edu/cnn_art/index.html" target="_blank" rel="noopener">link</a>)</em></p>
 <h5 id="vgg-simonyan-and-zisserman-2014">VGG (Simonyan and Zisserman, 2014)</h5>
 <ul>
 <li>该网络在当时被认为是“非常深的”：19层</li>
@@ -142,7 +142,7 @@
 <ul>
 <li>结合所有测试图像中的所有检测结果，为每个类别绘制一条精确召回曲线（PR曲线）；“平均精度”（AP）是PR曲线下的面积。</li>
 <li>鉴于目标对象位于不同的类别中，我们首先为每个类别分别计算AP，然后对各个类别进行平均。</li>
-<li>如果检测结果的“联合交叉点”（ IoU）的底线框大于某个阈值（通常为0.5；如果是，则度量为 “mAP@0.5”），则为真阳性。</li>
+<li>如果检测结果的“联合交叉点”（IoU）的底线框大于某个阈值（通常为0.5；如果是，则度量为 “mAP@0.5”），则为真阳性。</li>
 </ul>
 <h4 id="可变形部件模型">可变形部件模型</h4>
 <p>可变形部件模型 (DPM) (<a href="http://people.cs.uchicago.edu/~pff/papers/lsvm-pami.pdf" target="_blank" rel="noopener">Felzenszwalb et al., 2010</a>) 使用可变形零件的混合图形模型（马尔可夫随机场）识别对象。该模型包括三个主要部分：</p>
@@ -167,16 +167,16 @@
 <p>基本分数模型是 filter <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span> 与区域特征向量 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Phi(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>β</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>β</mi><mo>⋅</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(\beta, x) = \beta \cdot \Phi(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 之间的点积。特征集 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Phi(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 可以由 HOG 或其他类似算法定义。</p>
 <p>分数较高的根位置检测到包含对象的可能性较高的区域，而分数较高的部分的位置确认了已识别的对象假设。采用隐式支持向量机对分类器进行建模。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20210105DPM-matching.png" alt="DPM-matching"><br>
-<em>Fig. 6. DPM的匹配过程。(Image source: <a href="http://people.cs.uchicago.edu/~pff/papers/lsvm-pami.pdf" target="_blank" rel="noopener">Felzenszwalb et al., 2010</a>)</em></p>
-<p>作者后来声称，DPM和CNN模型不是对象识别的两种不同方法。相反，可以通过展开DPM推理算法并将每个步骤映射到等效的CNN层，将DPM模型公式化为CNN。 (相关细节请查看 <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Girshick_Deformable_Part_Models_2015_CVPR_paper.pdf" target="_blank" rel="noopener">Girshick et al., 2015</a>)</p>
+<em>Fig. 6. DPM 的匹配过程。(Image source: <a href="http://people.cs.uchicago.edu/~pff/papers/lsvm-pami.pdf" target="_blank" rel="noopener">Felzenszwalb et al., 2010</a>)</em></p>
+<p>作者后来声称，DPM 和 CNN 模型不是对象识别的两种不同方法。相反，可以通过展开DPM推理算法并将每个步骤映射到等效的CNN层，将DPM模型公式化为 CNN。 (相关细节请查看 <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Girshick_Deformable_Part_Models_2015_CVPR_paper.pdf" target="_blank" rel="noopener">Girshick et al., 2015</a>)</p>
 <h4 id="overfeat">Overfeat</h4>
 <p>Overfeat【<a href="https://pdfs.semanticscholar.org/f2c2/fbc35d0541571f54790851de9fcd1adde085.pdf" target="_blank" rel="noopener">paper</a>，<a href="https://github.com/sermanet/OverFeat" target="_blank" rel="noopener">code</a>】 是一种将目标检测、定位和分类任务集成到一个卷积神经网络中的先驱模型。其主要思想是（i）以滑动窗口的方式在图像多尺度区域的不同位置进行图像分类，以及（ii）在相同的卷积层上训练一个回归器来预测边界盒的位置。</p>
 <p>Overfeat 模型的体系结构与 <a href="#alexnet-krizhevsky-et-al-2012">AlexNet</a> 非常相似。<br>
 <strong>训练如下：</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/EurekaTesla/ImageService@master/uPic/20210105overfeat-training.png" alt="overfeat-training"><br>
-<em>Fig. 7. Overfeat模型的训练阶段。(Image source: <a href="http://vision.stanford.edu/teaching/cs231b_spring1415/slides/overfeat_eric.pdf" target="_blank" rel="noopener">link</a>)</em></p>
+<em>Fig. 7. Overfeat 模型的训练阶段。(Image source: <a href="http://vision.stanford.edu/teaching/cs231b_spring1415/slides/overfeat_eric.pdf" target="_blank" rel="noopener">link</a>)</em></p>
 <ol>
-<li>在图像分类任务上训练CNN模型（类似于AlexNet）。</li>
+<li>在图像分类任务上训练 CNN 模型（类似于AlexNet）。</li>
 <li>然后，我们用回归网络替换顶级分类器层，并对其进行训练，以预测每个空间位置和比例下的对象边界框。回归器是特定于类的，每个都是针对一个图像类生成的。
 <ul>
 <li>Input: 带分类和边界框的图像。</li>
@@ -187,7 +187,7 @@
 </ol>
 <p><strong>在检测时：</strong></p>
 <ol>
-<li>使用预先训练的CNN模型在每个位置执行分类。</li>
+<li>使用预先训练的 CNN 模型在每个位置执行分类。</li>
 <li>在分类器生成的所有分类区域上预测对象边界框。</li>
 <li>合并边界框，这些边界框应与本地化有足够的重叠度，并应有足够的信心从分类器中成为同一对象。</li>
 </ol>

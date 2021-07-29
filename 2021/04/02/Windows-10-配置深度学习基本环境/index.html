@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">938</span>
+            <span class="post-count">944</span>
         </span>
     </span>
 
@@ -101,9 +101,9 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p><strong>包括在 Windows 10 安装Python，CUDA和cuDNN，opencv，TensorFlow，pytorch</strong></p>
-<p><strong>注意CUDA和cuDNN的版本要和TensorFlow版本保持一致，下面会有介绍</strong></p>
-<p><strong>本教程在RTX20系列显卡上进行，注意RTX30系列显卡可能需要较高版本的CUDA，对应的cuDNN，TensorFlow版本也可能不同</strong></p>
+  <p><strong>包括在 Windows 10 安装Python，CUDA 和 cuDNN，opencv，TensorFlow，pytorch</strong></p>
+<p><strong>注意 CUDA 和 cuDNN 的版本要和 TensorFlow 版本保持一致，下面会有介绍</strong></p>
+<p><strong>本教程在 RTX20 系列显卡上进行，注意 RTX30 系列显卡可能需要较高版本的 CUDA，对应的 cuDNN，TensorFlow 版本也可能不同</strong></p>
 <p>相对于在 CENTOS 7 环境下配置环境，Windows 10 环境要友好很多，内容也比较简单，按步骤来即可</p>
 <h2 id="more"><a id="more"></a></h2>
 <p><strong>深度学习工作站硬件</strong><br>
@@ -116,11 +116,11 @@ TensorFlow：2.4.0<br>
 CUDA：11.1.0<br>
 cuDNN：8.2 (cudnn-11.2-windows-x64)</p>
 <h4 id="1-安装-python">1 安装 python</h4>
-<h5 id="1-1-python安装">1.1 python安装</h5>
-<p>在 windows下，建议用Anaconda。Anaconda 是推荐的 python开发包集合，在<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网</a>下载最新的版本。安装路径不要有中文，目录不要放得太深，安装时注意勾选自动添加环境变量。</p>
+<h5 id="1-1-python-安装">1.1 python 安装</h5>
+<p>在 windows 下，建议用 Anaconda。Anaconda 是推荐的 python 开发包集合，在<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网</a>下载最新的版本。安装路径不要有中文，目录不要放得太深，安装时注意勾选自动添加环境变量。</p>
 <h5 id="1-2-pycharm安装">1.2 pycharm安装</h5>
-<p>有两个推荐的 python 集成开发环境。Pycharm是好用的 python IDE，可与 anaconda 结合使用。官网下载安装，注意有两个版本，一个professional，一个是 community，前者是收费的，用后者即可。另一个是 visual studio code，它是与 Anaconda 合作的官方IDE。jupyter notebook 也是非常流行的开发环境。</p>
-<h4 id="2-cuda和cudnn">2 CUDA和cuDNN</h4>
+<p>有两个推荐的 python 集成开发环境。Pycharm 是好用的 python IDE，可与 anaconda 结合使用。官网下载安装，注意有两个版本，一个 professional，一个是 community，前者是收费的，用后者即可。另一个是 visual studio code，它是与 Anaconda 合作的官方IDE。jupyter notebook 也是非常流行的开发环境。</p>
+<h4 id="2-cuda-和-cudnn">2 CUDA 和 cuDNN</h4>
 <h5 id="2-1-安装显卡驱动">2.1 安装显卡驱动</h5>
 <p>首先查看本机是否安装显卡驱动</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
@@ -128,13 +128,13 @@ cuDNN：8.2 (cudnn-11.2-windows-x64)</p>
 <h5 id="2-2-cuda">2.2 CUDA</h5>
 <p>2.1 查看是否有安装历史</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
-<p>如果没有找到命令，则说明cuda没有安装。如果已经安装cuda，则会显示显示cuda版本信息</p>
+<p>如果没有找到命令，则说明 cuda 没有安装。如果已经安装 cuda，则会显示显示 cuda 版本信息</p>
 <p><a href="https://zhuanlan.zhihu.com/p/94220564?utm_source=wechat_session" target="_blank" rel="noopener">查看本机对应的cuda版本</a></p>
 <h5 id="2-2-确定-cuda-和-cudnn-要下载的版本">2.2 确定 CUDA 和 cuDNN 要下载的版本</h5>
 <ul>
-<li><a href="https://zhuanlan.zhihu.com/p/94220564?utm_source=wechat_session" target="_blank" rel="noopener">查看本机对应的cuda版本</a></li>
-<li>CUDA：GPU 编程的语言函数，和  TensorTlow 版本对应，找到对应的版本<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">下载 CUDA</a>，下载类型选择local。<strong>如果有补丁文件，则补丁一并下载安装！！！</strong></li>
-<li>cuDNN：深度学习/矩阵运算的加速库，和 TensorTlow 版本对应，需要在官网上注册后才能下载，找到对应的版本<a href="https://developer.nvidia.com/zh-cn/cudnn" target="_blank" rel="noopener">下载 cuDNN 压缩包</a>。下载完成后，将压缩包解压后，把里面的三个文件夹里面的文件复制到CUDA11安装目录中同名文件夹下即可(一般安装的目录是C:\Program Files\NVIDIA GPU Computing Toolkit)。<strong>注意，NVIDIA 官方有时会禁用了所有国内 IP 地址来下载关于AI方面的SDK，如果有梯子可通过翻后下载，没有就网上找一找对应版本的云盘资源</strong></li>
+<li><a href="https://zhuanlan.zhihu.com/p/94220564?utm_source=wechat_session" target="_blank" rel="noopener">查看本机对应的 cuda 版本</a></li>
+<li>CUDA：GPU 编程的语言函数，和  TensorTlow 版本对应，找到对应的版本<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">下载 CUDA</a>，下载类型选择 local。<strong>如果有补丁文件，则补丁一并下载安装！！！</strong></li>
+<li>cuDNN：深度学习/矩阵运算的加速库，和 TensorTlow 版本对应，需要在官网上注册后才能下载，找到对应的版本<a href="https://developer.nvidia.com/zh-cn/cudnn" target="_blank" rel="noopener">下载 cuDNN 压缩包</a>。下载完成后，将压缩包解压后，把里面的三个文件夹里面的文件复制到 CUDA11 安装目录中同名文件夹下即可(一般安装的目录是 C:\Program Files\NVIDIA GPU Computing Toolkit)。<strong>注意，NVIDIA 官方有时会禁用了所有国内 IP 地址来下载关于 AI 方面的 SDK，如果有梯子可通过翻后下载，没有就网上找一找对应版本的云盘资源</strong></li>
 </ul>
 <p><strong>因个人需求，这里安装 tensorflow-gpu==2.4.0，CUDA 11.1.0，cuDNN：8.2</strong><br>
 <strong>注意对应软件下载选择Windows版本</strong></p>

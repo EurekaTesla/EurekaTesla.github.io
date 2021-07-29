@@ -101,9 +101,9 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p><strong>包括在 CentOS 7 安装 NVIDIA 显卡驱动，CUDA和cuDNN，TensorFlow</strong></p>
-<p><strong>注意CUDA和cuDNN的版本要和TensorFlow版本保持一致，下面会有介绍</strong></p>
-<p><strong>本教程在RTX20系列显卡上进行，注意RTX30系列显卡需要较高版本的CUDA，对应的TensorFlow版本也不同</strong></p>
+  <p><strong>包括在 CentOS 7 安装 NVIDIA 显卡驱动，CUDA 和 cuDNN，TensorFlow</strong></p>
+<p><strong>注意 CUDA 和 cuDNN 的版本要和 TensorFlow 版本保持一致，下面会有介绍</strong></p>
+<p><strong>本教程在 RTX20 系列显卡上进行，注意 RTX30 系列显卡需要较高版本的 CUDA，对应的 TensorFlow 版本也不同</strong></p>
 <p>内容比较繁琐，一步步慢慢来</p>
 <h2 id="more"><a id="more"></a></h2>
 <p><strong>深度学习工作站硬件</strong><br>
@@ -123,13 +123,13 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <p>从官网选择符合当前服务器显卡型号的驱动<a href="https://www.nvidia.cn/Download/index.aspx?lang=cn" target="_blank" rel="noopener">NVIDIA 驱动程序下载</a></p>
 <h5 id="1-2-安装基础-rmp-依赖包">1.2 安装基础 rmp 依赖包</h5>
 <ul>
-<li>安装Nvidia驱动所需要的依赖包为kernel-devel、gcc、dkms。</li>
-<li>验证cudn，编译并运行验证Sample代码所需要的依赖包为gcc-c++。</li>
+<li>安装 Nvidia 驱动所需要的依赖包为 kernel-devel、gcc、dkms。</li>
+<li>验证 cudn，编译并运行验证 Sample 代码所需要的依赖包为 gcc-c++。</li>
 </ul>
-<p><strong>① 确认并安装对应服务器内核版本的kernel-devel包</strong></p>
+<p><strong>① 确认并安装对应服务器内核版本的 kernel-devel 包</strong></p>
 <p>首先确认当前服务器的内核版本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
-<p>然后查看当前yum环境中提供的kernel-devel包的版本是否一致</p>
+<p>然后查看当前 yum 环境中提供的 kernel-devel 包的版本是否一致</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list|grep kernel-devel</span><br></pre></td></tr></table></figure>
 <p>如果一致则接着下一步，不一致则更换一个和当前内核一致的版本。</p>
 <p><strong>② 安装rpm包</strong></p>
@@ -140,7 +140,7 @@ cuDNN：7.0.5  for CUDA9.0</p>
 </ul>
 <p><strong>① 查看系统自带的驱动</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
-<p>如果有结果，则说明存在nouveau。没有则直接跳过<strong>1.3 禁用 nouveau</strong>这一步</p>
+<p>如果有结果，则说明存在 nouveau。没有则直接跳过<strong>1.3 禁用 nouveau</strong>这一步</p>
 <p><strong>② 编辑文件</strong></p>
 <p>打开文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;lib&#x2F;modprobe.d&#x2F;dist-blacklist.conf</span><br></pre></td></tr></table></figure>
@@ -162,7 +162,7 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <p><strong>注意</strong></p>
 <ul>
 <li>驱动文件名 <font color="red"> NVIDIA-Linux-x86_64-455.38.run </font> 和 <font color="red"> 3.10.0-1127.el7.x86_64 </font>都要改为自己下载的驱动名称和内核版本（查看内核版本：<code>uname -r</code>）</li>
-<li>注意第一个（如下）选项选择<strong>Yes</strong>，其余选择默认的然后回车</li>
+<li>注意第一个（如下）选项选择 <strong>Yes</strong>，其余选择默认的然后回车</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Would you like to register the kernel module sources with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later.</span><br></pre></td></tr></table></figure>
 <p><strong>④ 检查是否安装成功</strong><br>
@@ -171,9 +171,9 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <p>显示</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 440.82       Driver Version: 440.82       CUDA Version: 10.2     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage&#x2F;Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;+&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">|   0  GeForce RTX 208...  Off  | 00000000:01:00.0  On |                  N&#x2F;A |</span><br><span class="line">| 37%   28C    P8    11W &#x2F; 250W |    231MiB &#x2F;  7981MiB |      1%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">                                                                               </span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;|</span><br><span class="line">|    0      1908      G   &#x2F;usr&#x2F;bin&#x2F;X                                   120MiB |</span><br><span class="line">|    0      3183      G   &#x2F;usr&#x2F;bin&#x2F;gnome-shell                         109MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
 <ul>
-<li>第一行表示当前显卡驱动的版本和显卡支持的CUDA的版本，注意：这里支持CUDA的版本是只能够支持的最高版本，是可以向下兼容的</li>
+<li>第一行表示当前显卡驱动的版本和显卡支持的 CUDA 的版本，注意：这里支持 CUDA 的版本是只能够支持的最高版本，是可以向下兼容的</li>
 <li>GPU：本机的GPU编号</li>
-<li>Persistence-M：驱动常驻模式，如果设置为ON，则GPU功耗大但是启动新deGPU应用花费的时间更少</li>
+<li>Persistence-M：驱动常驻模式，如果设置为 ON，则 GPU 功耗大但是启动新 deGPU 应用花费的时间更少</li>
 <li>Fan：风扇转速百分比</li>
 <li>Temp：显卡温度</li>
 <li>Perf：当前的性能状态，P0最高，P12最低</li>
@@ -182,23 +182,23 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <li>Disp.A：GPU显示功能是否初始化</li>
 <li>Memory-Usage：显存的使用情况</li>
 <li>Volatile GPU-Util：浮动的GPU利用率</li>
-<li>ECC：ECC是一种能够实现“错误检查和纠正”的技术，ECC内存就是应用了这种技术的内存，一般多应用在服务器及图形工作站上，可提高计算机运行的稳定性和增加可靠性</li>
+<li>ECC：ECC 是一种能够实现“错误检查和纠正”的技术，ECC 内存就是应用了这种技术的内存，一般多应用在服务器及图形工作站上，可提高计算机运行的稳定性和增加可靠性</li>
 <li>Compute M：计算模式</li>
-<li>Processes：每块GPU的进程情况</li>
+<li>Processes：每块 GPU 的进程情况</li>
 </ul>
 <hr>
 <p>注：如果要进入图形化界面，请阅读下面的图形化界面切换以及设置开机进入方式</p>
-<p><strong>CentOS 7 启动与切换dos界面和图形界面</strong></p>
+<p><strong>CentOS 7 启动与切换 dos 界面和图形界面</strong></p>
 <p><strong>① 设置开机启动界面</strong></p>
 <ul>
 <li>设置开机启动图形界面</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
 <ul>
-<li>设置开机启动dos界面</li>
+<li>设置开机启动 dos 界面</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure>
-<p><strong>② 切换dos界面和图形化界面</strong></p>
+<p><strong>② 切换 dos 界面和图形化界面</strong></p>
 <ul>
 <li>图形界面到dos界面：ctrl+alt+f2 或者 <code> init 3</code></li>
 <li>dos界面到图形界面：<code>startx</code> 或者 <code> init 5</code></li>
@@ -207,7 +207,7 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <h4 id="2-安装-cuda-和-cudnn">2 安装 CUDA 和 cuDNN</h4>
 <h5 id="2-1-查看是否有安装历史">2.1 查看是否有安装历史</h5>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
-<p>如果没有找到命令，则说明cuda没有安装。如果已经安装cuda，则会显示显示cuda版本信息</p>
+<p>如果没有找到命令，则说明cuda没有安装。如果已经安装 cuda，则会显示显示 cuda 版本信息</p>
 <h5 id="2-2-根据-tensortlow-版本确定-cuda-和-cudnn-要下载的版本">2.2 根据 TensorTlow 版本确定 CUDA 和 cuDNN 要下载的版本</h5>
 <ul>
 <li>TensorFlow 各个版本需要的CUDA版本以及Cudnn的对应关系可查看<a href="https://tensorflow.google.cn/install/source" target="_blank" rel="noopener">官网文档</a>末尾表格</li>
@@ -218,7 +218,7 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <strong>注意对应软件下载选择Linux版本</strong></p>
 <h5 id="2-3-安装-cuda">2.3 安装 CUDA</h5>
 <p><strong>① 进入root权限并开始安装</strong><br>
-进入root权限：<code>su root</code>，然后输入密码进入</p>
+进入 root 权限：<code>su root</code>，然后输入密码进入</p>
 <p>执行如下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">sh cuda_9.0.176_384.81_linux.run</span><br><span class="line"></span><br><span class="line"># 一直按空格按倒最后，进行一些选项</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line">Do you accept the previously read EULA?</span><br><span class="line">accept&#x2F;decline&#x2F;quit:   accept</span><br><span class="line"></span><br><span class="line"># 关键！！！之前已经安装过高版本驱动，这里一定要键入 n</span><br><span class="line">Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: n</span><br><span class="line"></span><br><span class="line">Install the CUDA 9.0 Toolkit?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: y</span><br><span class="line"></span><br><span class="line">Enter Toolkit Location</span><br><span class="line"> [ default is &#x2F;usr&#x2F;local&#x2F;cuda-9.0 ]: </span><br><span class="line"></span><br><span class="line">Do you want to install a symbolic link at &#x2F;usr&#x2F;local&#x2F;cuda?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: y</span><br><span class="line"></span><br><span class="line">Install the CUDA 9.0 Samples?</span><br><span class="line">(y)es&#x2F;(n)o&#x2F;(q)uit: y</span><br><span class="line"></span><br><span class="line">Enter CUDA Samples Location</span><br><span class="line"> [ default is &#x2F;root ]: </span><br><span class="line"></span><br><span class="line">Installing the CUDA Toolkit in &#x2F;usr&#x2F;local&#x2F;cuda-9.0 ...</span><br><span class="line"># 等待安装</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 安装完成显示内容类似下面</span><br><span class="line">Missing recommended library: libGLU.so</span><br><span class="line">Missing recommended library: libXi.so</span><br><span class="line">Missing recommended library: libXmu.so</span><br><span class="line">Missing recommended library: libGL.so</span><br><span class="line"></span><br><span class="line">Installing the CUDA Samples in &#x2F;root ...</span><br><span class="line">Copying samples to &#x2F;root&#x2F;NVIDIA_CUDA-9.0_Samples now...</span><br><span class="line">Finished copying samples.</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&#x3D; Summary &#x3D;</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Driver:   Not Selected</span><br><span class="line">Toolkit:  Installed in &#x2F;usr&#x2F;local&#x2F;cuda-9.0</span><br><span class="line">Samples:  Installed in &#x2F;root, but missing recommended libraries</span><br><span class="line"></span><br><span class="line">Please make sure that</span><br><span class="line"> -   PATH includes &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin</span><br><span class="line"> -   LD_LIBRARY_PATH includes &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64, or, add &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;lib64 to &#x2F;etc&#x2F;ld.so.conf and run ldconfig as root</span><br><span class="line"></span><br><span class="line">To uninstall the CUDA Toolkit, run the uninstall script in &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin</span><br><span class="line"></span><br><span class="line">Please see CUDA_Installation_Guide_Linux.pdf in &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;doc&#x2F;pdf for detailed information on setting up CUDA.</span><br><span class="line"></span><br><span class="line">***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 384.00 is required for CUDA 9.0 functionality to work.</span><br><span class="line">To install the driver using this installer, run the following command, replacing &lt;CudaInstaller&gt; with the name of this run file:</span><br><span class="line">    sudo &lt;CudaInstaller&gt;.run -silent -driver</span><br><span class="line"></span><br><span class="line">Logfile is &#x2F;tmp&#x2F;cuda_install_11268.log</span><br></pre></td></tr></table></figure>
 <p>如果有补丁文件, 有类似的方法安装即可</p>
@@ -260,7 +260,7 @@ cuDNN：7.0.5  for CUDA9.0</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple  Keras&#x3D;&#x3D;2.1.6</span><br></pre></td></tr></table></figure>
 <h4 id="4-其他">4 其他</h4>
 <h5 id="4-1-卸载-cuda-和-cudnn">4.1 卸载 CUDA 和 cuDNN</h5>
-<p><strong>只针对对于.run方式安装的卸载</strong></p>
+<p><strong>只针对对于 .run 方式安装的卸载</strong></p>
 <p><strong>① 卸载 CUDA</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;usr&#x2F;local&#x2F;cuda-9.0&#x2F;bin&#x2F;uninstall_cuda_9.0.pl</span><br></pre></td></tr></table></figure>
 <p>注意其中9.0修改为自己对应的版本号</p>
